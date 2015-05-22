@@ -1,6 +1,9 @@
 -- MODEL
 
-type alias Model = List String
+type alias Model = 
+    { title : String,
+      entries :  List String
+    }
 
 
 -- UPDATE
@@ -13,7 +16,10 @@ update : Action -> Model -> Model
 update action model =
   case action of
     Create string -> String.split "\n" string
-    Pop -> tail model
+    Pop -> 
+        { model |
+            entries <- tail model.entries
+        }
 
 -- VIEW
 
