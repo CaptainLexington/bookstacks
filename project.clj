@@ -36,7 +36,8 @@
   {:builds
    [{:id           "dev"
      :source-paths ["src/cljs"]
-     :figwheel     {:on-jsload "bookstacks.core/mount-root"}
+     :figwheel     {:on-jsload "bookstacks.core/mount-root"
+                    :websocket-host :js-client-host}
      :compiler     {:main                 bookstacks.core
                     :output-to            "resources/public/js/compiled/app.js"
                     :output-dir           "resources/public/js/compiled/out"
