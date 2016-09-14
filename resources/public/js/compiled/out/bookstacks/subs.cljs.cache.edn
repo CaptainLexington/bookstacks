@@ -1,0 +1,1 @@
+{:use-macros {reaction reagent.ratom}, :excludes #{}, :name bookstacks.subs, :imports nil, :requires {re-frame re-frame.core, re-frame.core re-frame.core}, :uses nil, :require-macros {reagent.ratom reagent.ratom}, :cljs.analyzer/constants {:seen #{:lists :name :active-panel}, :order [:name :active-panel :lists]}, :doc nil}

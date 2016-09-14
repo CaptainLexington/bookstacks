@@ -1,0 +1,40 @@
+body {
+  color: black;
+  background-color: tan;
+  width: 50%;
+  margin-left: 25%;
+  margin-right: 25%;
+}
+div.booklist {
+  float: left;
+}
+ul {
+  list-style: none;
+}
+ul li {
+  cursor: Pointer;
+  border-radius: 10px;
+  padding: 4px;
+  margin: 2px;
+  -webkit-user-select: none;
+  width: 250px;
+  min-height: 40px;
+}
+ul .unread {
+  color: White;
+  background-color: teal;
+}
+ul .reading {
+  color: White;
+  background-color: #7EAB6F;
+}
+ul .read {
+  color: #666;
+  background-color: #8A979C;
+}
+ul span {
+  display: inline-block;
+}
+div.book-button {
+  float: right;
+}
