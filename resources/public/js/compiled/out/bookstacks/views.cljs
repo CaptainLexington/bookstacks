@@ -50,17 +50,8 @@
                                        (swap! add-new-open not) )]]]]]))
 
 
-(defn book-button [icon tooltip on-click]
-  [re-com/md-circle-icon-button 
-   :md-icon-name (str "zmdi-" icon)
-   :on-click on-click
-   :size :smaller
-   :tooltip tooltip
-   :tooltip-position :below-center
-   :class "book-button" 
-   :disabled? (= :read (:status %))])
 
-(defn tab-components
+(defn read-status
   [status book list] 
   (let [tabs (reagent/atom [{:id :unread
                              :label "Unread"},
@@ -76,23 +67,35 @@
                    (reset! status %)
                    (re-frame/dispatch [:update-read-status % book list]))]))
 
-(defn booklist [list]
-  [:div.booklist  [:h3 (:name list)]
+(defn bookstack-tabs [stacks current-stack]
+  [re-com/horizontal-tabs 
+   :tabs (reagent.ratom/reaction (mapv #(hash-map
+                                          :id %
+                                          :label %)
+                                       @stacks))
+   :model current-stack
+   :on-change #(re-frame/dispatch [:select-stack %])])
+
+(defn bookstack [stack]
+  [:div.booklist  [:h3 (:name stack)]
    (into [:ul]
          (map #(vector (keyword (str "li." (name (:status %))))
                        [:span  (:title %)]
-                       (tab-components (:status %) % list))
-              (:list list)))])
+                       (read-status (:status %) % stack))
+              (:books stack)))])
 
 (defn home-panel []
-  (let [lists (re-frame/subscribe [:lists])]
+  (let [current-stack (re-frame/subscribe [:current-stack])
+        stack (re-frame/subscribe [:stack @current-stack])
+        stacks (re-frame/subscribe [:stacks])]
+    (.log js/console stacks) 
     [re-com/v-box
      :gap "1em"
-     :children [[home-title] 
+     :children [[home-title]
+                (bookstack-tabs stacks current-stack)
                 (add-a-list)
-                (into [:div ] 
-                      (map booklist 
-                           @lists))
+                [:div  
+                 (bookstack @stack)] 
                 [link-to-about-page]]]))
 
 

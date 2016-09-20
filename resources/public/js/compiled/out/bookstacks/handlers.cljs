@@ -15,21 +15,35 @@
 (re-frame/reg-event-db
   :add-bookstack
   (fn [db [_ new-title new-list]]
-    (assoc db :lists 
-           (conj 
-             (:lists db)
-             {:name new-title
-              :list  (mapv #(hash-map :title % 
-                                     :status :unread) 
-                          (clojure.string/split  new-list #"\n"))}))))
+    (assoc db
+           :books 
+           (vec (concat 
+                  (:books db)
+                  (map-indexed
+                    (fn [index title]
+                     (hash-map
+                      :title title
+                      :status :unread
+                      :stacks [{:name new-title
+                                :index index}]))
+                    (clojure.string/split 
+                      new-list
+                      #"\n"))))
+           :stacks
+           (conj (:stacks db)
+                 new-title))))
 
 (re-frame/reg-event-db
   :update-read-status
-  (fn [db [_ status book list]]
+  (fn [db [_ status book]]
     (assoc-in db
-              [:lists 
-               (.indexOf (:lists db) list)
-               :list
-               (.indexOf (:list list) book)
+              [:books 
+               (.indexOf (:books db) book)
                :status]
               status)))
+
+(re-frame/reg-event-db
+  :select-stack 
+  (fn [db [_ stack-name]]
+    (assoc db
+           :current-stack stack-name)))
