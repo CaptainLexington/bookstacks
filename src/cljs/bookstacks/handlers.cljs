@@ -43,6 +43,13 @@
               status)))
 
 (re-frame/reg-event-db
+  :update-search-term
+  (fn [db [_ search-term]]
+    (assoc db
+           :search-term
+           search-term)))
+
+(re-frame/reg-event-db
   :select-stack 
   (fn [db [_ stack-name]]
     (assoc db

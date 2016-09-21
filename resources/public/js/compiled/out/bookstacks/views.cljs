@@ -28,11 +28,11 @@
                :label "Add New List"
                :on-click #(swap! add-new-open not)]
       :showing? add-new-open
-      :position :below-center
+      :position :right-below
       :popover [re-com/popover-content-wrapper 
                 :title "Add New List"
                 :showing? add-new-open 
-                :position :below-center
+                :position :right-below
                 :width "400px"
                 :body [:div 
                        [re-com/input-text :model ""
@@ -48,8 +48,13 @@
                         :label "Add"
                         :on-click #(do (re-frame/dispatch [:add-bookstack @add-new-title @add-new-list])
                                        (swap! add-new-open not) )]]]]]))
-
-
+(defn search
+  [search-term]
+  [re-com/input-text 
+   :model search-term
+   :change-on-blur? false
+   :placeholder "Search Stacks & Books"
+   :on-change #(re-frame/dispatch [:update-search-term %])])
 
 (defn read-status
   [status book list] 
@@ -67,12 +72,15 @@
                    (reset! status %)
                    (re-frame/dispatch [:update-read-status % book list]))]))
 
-(defn bookstack-tabs [stacks current-stack]
-  [re-com/horizontal-tabs 
+(defn bookstack-nav [stacks current-stack]
+  [:ul 
+   (mapv)
+   ]
+  [re-com/vertical-pill-tabs
    :tabs (reagent.ratom/reaction (mapv #(hash-map
                                           :id %
                                           :label %)
-                                       @stacks))
+                                       (sort  @stacks)))
    :model current-stack
    :on-change #(re-frame/dispatch [:select-stack %])])
 
@@ -87,16 +95,19 @@
 (defn home-panel []
   (let [current-stack (re-frame/subscribe [:current-stack])
         stack (re-frame/subscribe [:stack @current-stack])
-        stacks (re-frame/subscribe [:stacks])]
-    (.log js/console stacks) 
+        stacks (re-frame/subscribe [:stacks])
+        search-term (re-frame/subscribe [:search-term])]
     [re-com/v-box
      :gap "1em"
      :children [[home-title]
-                (bookstack-tabs stacks current-stack)
-                (add-a-list)
-                [:div  
-                 (bookstack @stack)] 
-                [link-to-about-page]]]))
+                [re-com/h-box
+                 :children [[re-com/v-box
+                             :children [(search search-term) 
+                                        (add-a-list)
+                                        (bookstack-nav stacks current-stack)
+                                        [link-to-about-page]]]
+                            [:div  
+                             (bookstack @stack)]]]]]))
 
 
 ;; about

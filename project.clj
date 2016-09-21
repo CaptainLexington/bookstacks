@@ -8,6 +8,7 @@
                  [secretary "1.2.3"]
                  [compojure "1.5.0"]
                  [yogthos/config "0.8"]
+                 [camel-snake-kebab "0.4.0"]
                  [ring "1.4.0"]]
 
   :plugins [[lein-cljsbuild "1.1.3"]

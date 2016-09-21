@@ -1,6 +1,8 @@
 (ns bookstacks.subs
   (:require-macros [reagent.ratom :refer [reaction]])
-  (:require [re-frame.core :as re-frame]))
+  (:require [re-frame.core :as re-frame]
+            [clojure.string :as string]
+            [clojure.set :as set]))
 
 (re-frame/reg-sub
   :name
@@ -12,10 +14,20 @@
   (fn [db]
     (:books db)))
 
+(defn filter-stacks [stacks query current-stack]
+  (conj (clojure.set/select 
+          #(clojure.string/includes? 
+             (string/lower-case  %) 
+             (string/lower-case  query))
+          stacks)
+        current-stack))
+
 (re-frame/reg-sub
   :stacks
   (fn [db]
-    (:stacks db)))
+    (let [query (reaction (:search-term db))
+          current-stack (reaction (:current-stack db))]
+      (filter-stacks (:stacks db) @query @current-stack))))
 
 (defn get-stack [books stack] 
   (sort-by :index 
@@ -38,6 +50,12 @@
       {:name stack-name 
        :books (get-stack @books
                          stack-name)})))
+
+(re-frame/reg-sub
+  :search-term
+  (fn [db]
+    (:search-term db))) 
+
 
 (re-frame/reg-sub
   :active-panel

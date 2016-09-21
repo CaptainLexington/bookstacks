@@ -55,7 +55,7 @@ goog.addDependency("../re_frame/core.js", ['re_frame.core'], ['re_frame.interop'
 goog.addDependency("../bookstacks/views.js", ['bookstacks.views'], ['re_com.core', 'reagent.core', 'cljs.core', 're_frame.core']);
 goog.addDependency("../bookstacks/db.js", ['bookstacks.db'], ['cljs.core']);
 goog.addDependency("../bookstacks/handlers.js", ['bookstacks.handlers'], ['bookstacks.db', 'cljs.core', 're_frame.core']);
-goog.addDependency("../bookstacks/subs.js", ['bookstacks.subs'], ['cljs.core', 're_frame.core']);
+goog.addDependency("../bookstacks/subs.js", ['bookstacks.subs'], ['cljs.core', 'clojure.set', 'clojure.string', 're_frame.core']);
 goog.addDependency("../secretary/core.js", ['secretary.core'], ['cljs.core', 'clojure.string', 'clojure.walk']);
 goog.addDependency("../bookstacks/routes.js", ['bookstacks.routes'], ['cljs.core', 'goog.history.EventType', 'goog.History', 'secretary.core', 'goog.events', 're_frame.core']);
 goog.addDependency("../cljs/stacktrace.js", ['cljs.stacktrace'], ['goog.string', 'cljs.core', 'clojure.string']);

@@ -104,14 +104,15 @@
                       :index 1}
                      {:name "Inklings fantasy novels"
                       :index 8}]},
-           {:title "The Return of the King"
-            :status :unread
-            :stacks [{:name "The Lord of the Rings"
-                      :index 2}
-                     {:name "Inklings fantasy novels"
-                      :index 9}]},]
-   :stacks ["The Flashman Papers"
-           "The Chronicles of Narnia"
-           "The Lord of the Rings"
-           "Inklings fantasy novels"]
-   :current-stack "The Flashman Papers"})
+{:title "The Return of the King"
+ :status :unread
+ :stacks [{:name "The Lord of the Rings"
+           :index 2}
+          {:name "Inklings fantasy novels"
+           :index 9}]},]
+:stacks #{"The Flashman Papers"
+          "The Chronicles of Narnia"
+          "The Lord of the Rings"
+          "Inklings fantasy novels" }
+:search-term ""
+:current-stack "The Flashman Papers"})
