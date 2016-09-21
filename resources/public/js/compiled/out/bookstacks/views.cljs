@@ -73,9 +73,6 @@
                    (re-frame/dispatch [:update-read-status % book list]))]))
 
 (defn bookstack-nav [stacks current-stack]
-  [:ul 
-   (mapv)
-   ]
   [re-com/vertical-pill-tabs
    :tabs (reagent.ratom/reaction (mapv #(hash-map
                                           :id %

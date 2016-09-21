@@ -3,4 +3,4 @@ goog.provide('bookstacks.config');
 goog.require('cljs.core');
 bookstacks.config.debug_QMARK_ = goog.DEBUG;
 
-//# sourceMappingURL=config.js.map?rel=1473455228647
+//# sourceMappingURL=config.js.map?rel=1474484603085

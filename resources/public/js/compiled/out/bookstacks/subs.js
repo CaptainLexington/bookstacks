@@ -11,8 +11,8 @@ re_frame.core.reg_sub.call(null,new cljs.core.Keyword(null,"books","books",-2005
 return new cljs.core.Keyword(null,"books","books",-2005362272).cljs$core$IFn$_invoke$arity$1(db);
 }));
 bookstacks.subs.filter_stacks = (function bookstacks$subs$filter_stacks(stacks,query,current_stack){
-return cljs.core.conj.call(null,clojure.set.select.call(null,(function (p1__25974_SHARP_){
-return clojure.string.includes_QMARK_.call(null,clojure.string.lower_case.call(null,p1__25974_SHARP_),clojure.string.lower_case.call(null,query));
+return cljs.core.conj.call(null,clojure.set.select.call(null,(function (p1__26058_SHARP_){
+return clojure.string.includes_QMARK_.call(null,clojure.string.lower_case.call(null,p1__26058_SHARP_),clojure.string.lower_case.call(null,query));
 }),stacks),current_stack);
 });
 re_frame.core.reg_sub.call(null,new cljs.core.Keyword(null,"stacks","stacks",-456633410),(function (db){
@@ -28,22 +28,22 @@ return bookstacks.subs.filter_stacks.call(null,new cljs.core.Keyword(null,"stack
 }));
 bookstacks.subs.get_stack = (function bookstacks$subs$get_stack(books,stack){
 return cljs.core.sort_by.call(null,new cljs.core.Keyword(null,"index","index",-1531685915),cljs.core.filter.call(null,(function (book){
-return cljs.core.some.call(null,(function (p1__25975_SHARP_){
-return cljs.core._EQ_.call(null,new cljs.core.Keyword(null,"name","name",1843675177).cljs$core$IFn$_invoke$arity$1(p1__25975_SHARP_),stack);
+return cljs.core.some.call(null,(function (p1__26059_SHARP_){
+return cljs.core._EQ_.call(null,new cljs.core.Keyword(null,"name","name",1843675177).cljs$core$IFn$_invoke$arity$1(p1__26059_SHARP_),stack);
 }),new cljs.core.Keyword(null,"stacks","stacks",-456633410).cljs$core$IFn$_invoke$arity$1(book));
 }),books));
 });
 re_frame.core.reg_sub.call(null,new cljs.core.Keyword(null,"current-stack","current-stack",-1546696626),(function (db){
 return new cljs.core.Keyword(null,"current-stack","current-stack",-1546696626).cljs$core$IFn$_invoke$arity$1(db);
 }));
-re_frame.core.reg_sub.call(null,new cljs.core.Keyword(null,"stack","stack",-793405930),(function (db,p__25976){
-var vec__25977 = p__25976;
-var query = cljs.core.nth.call(null,vec__25977,(0),null);
-var stack_name = cljs.core.nth.call(null,vec__25977,(1),null);
-var books = reagent.ratom.make_reaction.call(null,((function (vec__25977,query,stack_name){
+re_frame.core.reg_sub.call(null,new cljs.core.Keyword(null,"stack","stack",-793405930),(function (db,p__26060){
+var vec__26061 = p__26060;
+var query = cljs.core.nth.call(null,vec__26061,(0),null);
+var stack_name = cljs.core.nth.call(null,vec__26061,(1),null);
+var books = reagent.ratom.make_reaction.call(null,((function (vec__26061,query,stack_name){
 return (function (){
 return new cljs.core.Keyword(null,"books","books",-2005362272).cljs$core$IFn$_invoke$arity$1(db);
-});})(vec__25977,query,stack_name))
+});})(vec__26061,query,stack_name))
 );
 return new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"name","name",1843675177),stack_name,new cljs.core.Keyword(null,"books","books",-2005362272),bookstacks.subs.get_stack.call(null,cljs.core.deref.call(null,books),stack_name)], null);
 }));
@@ -54,4 +54,4 @@ re_frame.core.reg_sub.call(null,new cljs.core.Keyword(null,"active-panel","activ
 return new cljs.core.Keyword(null,"active-panel","active-panel",-1802545994).cljs$core$IFn$_invoke$arity$1(db);
 }));
 
-//# sourceMappingURL=subs.js.map?rel=1474481581793
+//# sourceMappingURL=subs.js.map?rel=1474484606297
