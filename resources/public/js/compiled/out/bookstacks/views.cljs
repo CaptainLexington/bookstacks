@@ -1,7 +1,8 @@
 (ns bookstacks.views
   (:require [reagent.core :as reagent]
             [re-frame.core :as re-frame]
-            [re-com.core :as re-com]))
+            [re-com.core :as re-com]
+            [camel-snake-kebab.core :as case]))
 
 
 ;; home
@@ -73,13 +74,12 @@
                    (re-frame/dispatch [:update-read-status % book list]))]))
 
 (defn bookstack-nav [stacks current-stack]
-  [re-com/vertical-pill-tabs
-   :tabs (reagent.ratom/reaction (mapv #(hash-map
-                                          :id %
-                                          :label %)
-                                       (sort  @stacks)))
-   :model current-stack
-   :on-change #(re-frame/dispatch [:select-stack %])])
+  (into [:nav ]
+        (mapv (fn [stack]
+                [:li
+                 [:a {:href (str "/#/stacks/" stack)} 
+                     stack]])
+              stacks)))
 
 (defn bookstack [stack]
   [:div.booklist  [:h3 (:name stack)]
@@ -101,7 +101,7 @@
                  :children [[re-com/v-box
                              :children [(search search-term) 
                                         (add-a-list)
-                                        (bookstack-nav stacks current-stack)
+                                        (bookstack-nav @stacks @current-stack)
                                         [link-to-about-page]]]
                             [:div  
                              (bookstack @stack)]]]]]))

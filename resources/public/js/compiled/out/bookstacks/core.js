@@ -34,4 +34,4 @@ return bookstacks.core.mount_root.call(null);
 });
 goog.exportSymbol('bookstacks.core.init', bookstacks.core.init);
 
-//# sourceMappingURL=core.js.map?rel=1474484607027
+//# sourceMappingURL=core.js.map?rel=1474491199223

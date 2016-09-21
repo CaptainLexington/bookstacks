@@ -33,6 +33,10 @@ ul .read {
 ul span {
   display: inline-block;
 }
+nav li {
+  cursor: Pointer;
+  list-style: none;
+}
 div.book-button {
   float: right;
 }

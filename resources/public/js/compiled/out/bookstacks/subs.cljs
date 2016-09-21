@@ -15,12 +15,11 @@
     (:books db)))
 
 (defn filter-stacks [stacks query current-stack]
-  (conj (clojure.set/select 
-          #(clojure.string/includes? 
-             (string/lower-case  %) 
-             (string/lower-case  query))
-          stacks)
-        current-stack))
+  (clojure.set/select 
+    #(clojure.string/includes? 
+       (string/lower-case  %) 
+       (string/lower-case  query))
+    stacks))
 
 (re-frame/reg-sub
   :stacks
