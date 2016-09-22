@@ -53,4 +53,6 @@
   :select-stack 
   (fn [db [_ stack-name]]
     (assoc db
-           :current-stack stack-name)))
+           :current-stack (clojure.string/replace stack-name
+                                            "_"
+                                            " "))))

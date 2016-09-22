@@ -80,7 +80,9 @@
   (into [:nav ]
         (mapv (fn [stack]
                 [:li
-                 [:a {:href (str "/#/stacks/" stack)} 
+                 [:a {:href (str "/#/stacks/" (clojure.string/replace stack
+                                                                      " "
+                                                                      "_"))} 
                   stack]])
               stacks)))
 
