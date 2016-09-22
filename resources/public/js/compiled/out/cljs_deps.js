@@ -42,6 +42,7 @@ goog.addDependency("../camel_snake_kebab/internals/string_separator.js", ['camel
 goog.addDependency("../camel_snake_kebab/internals/misc.js", ['camel_snake_kebab.internals.misc'], ['camel_snake_kebab.internals.string_separator', 'cljs.core', 'clojure.string']);
 goog.addDependency("../camel_snake_kebab/internals/alter_name.js", ['camel_snake_kebab.internals.alter_name'], ['cljs.core']);
 goog.addDependency("../camel_snake_kebab/core.js", ['camel_snake_kebab.core'], ['cljs.core', 'camel_snake_kebab.internals.misc', 'clojure.string', 'camel_snake_kebab.internals.alter_name']);
+goog.addDependency("../bookstacks/utils.js", ['bookstacks.utils'], ['cljs.core']);
 goog.addDependency("../re_frame/interop.js", ['re_frame.interop'], ['reagent.ratom', 'reagent.core', 'cljs.core', 'goog.async.nextTick']);
 goog.addDependency("../re_frame/loggers.js", ['re_frame.loggers'], ['cljs.core', 'clojure.set']);
 goog.addDependency("../re_frame/interceptor.js", ['re_frame.interceptor'], ['re_frame.interop', 'cljs.core', 're_frame.loggers']);
@@ -56,7 +57,7 @@ goog.addDependency("../re_frame/std_interceptors.js", ['re_frame.std_interceptor
 goog.addDependency("../re_frame/subs.js", ['re_frame.subs'], ['re_frame.interop', 're_frame.registrar', 'cljs.core', 're_frame.utils', 're_frame.loggers', 're_frame.db']);
 goog.addDependency("../re_frame/cofx.js", ['re_frame.cofx'], ['re_frame.interceptor', 're_frame.registrar', 'cljs.core', 're_frame.loggers', 're_frame.db']);
 goog.addDependency("../re_frame/core.js", ['re_frame.core'], ['re_frame.interop', 're_frame.interceptor', 're_frame.events', 're_frame.fx', 're_frame.registrar', 'cljs.core', 're_frame.router', 're_frame.std_interceptors', 're_frame.loggers', 're_frame.subs', 're_frame.cofx', 're_frame.db']);
-goog.addDependency("../bookstacks/views.js", ['bookstacks.views'], ['re_com.core', 'reagent.core', 'cljs.core', 'camel_snake_kebab.core', 're_frame.core']);
+goog.addDependency("../bookstacks/views.js", ['bookstacks.views'], ['re_com.core', 'reagent.core', 'cljs.core', 'camel_snake_kebab.core', 'bookstacks.utils', 're_frame.core']);
 goog.addDependency("../bookstacks/db.js", ['bookstacks.db'], ['cljs.core']);
 goog.addDependency("../bookstacks/handlers.js", ['bookstacks.handlers'], ['bookstacks.db', 'cljs.core', 're_frame.core']);
 goog.addDependency("../bookstacks/subs.js", ['bookstacks.subs'], ['cljs.core', 'clojure.set', 'clojure.string', 're_frame.core']);

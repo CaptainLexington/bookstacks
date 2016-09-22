@@ -2,9 +2,10 @@
 goog.provide('bookstacks.views');
 goog.require('cljs.core');
 goog.require('reagent.core');
-goog.require('re_frame.core');
 goog.require('re_com.core');
 goog.require('camel_snake_kebab.core');
+goog.require('bookstacks.utils');
+goog.require('re_frame.core');
 bookstacks.views.home_title = (function bookstacks$views$home_title(){
 var name = re_frame.core.subscribe.call(null,new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"name","name",1843675177)], null));
 return ((function (name){
@@ -25,14 +26,14 @@ return (function (){
 return cljs.core.swap_BANG_.call(null,add_new_open,cljs.core.not);
 });})(add_new_open,add_new_title,add_new_list))
 ], null),new cljs.core.Keyword(null,"showing?","showing?",2094921488),add_new_open,new cljs.core.Keyword(null,"position","position",-2011731912),new cljs.core.Keyword(null,"right-below","right-below",586981827),new cljs.core.Keyword(null,"popover","popover",-1809582136),new cljs.core.PersistentVector(null, 11, 5, cljs.core.PersistentVector.EMPTY_NODE, [re_com.core.popover_content_wrapper,new cljs.core.Keyword(null,"title","title",636505583),"Add New List",new cljs.core.Keyword(null,"showing?","showing?",2094921488),add_new_open,new cljs.core.Keyword(null,"position","position",-2011731912),new cljs.core.Keyword(null,"right-below","right-below",586981827),new cljs.core.Keyword(null,"width","width",-384071477),"400px",new cljs.core.Keyword(null,"body","body",-2049205669),new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div","div",1057191632),new cljs.core.PersistentVector(null, 9, 5, cljs.core.PersistentVector.EMPTY_NODE, [re_com.core.input_text,new cljs.core.Keyword(null,"model","model",331153215),"",new cljs.core.Keyword(null,"on-change","on-change",-732046149),((function (add_new_open,add_new_title,add_new_list){
-return (function (p1__25894_SHARP_){
-return cljs.core.reset_BANG_.call(null,add_new_title,p1__25894_SHARP_);
+return (function (p1__25532_SHARP_){
+return cljs.core.reset_BANG_.call(null,add_new_title,p1__25532_SHARP_);
 });})(add_new_open,add_new_title,add_new_list))
 ,new cljs.core.Keyword(null,"width","width",-384071477),"100%",new cljs.core.Keyword(null,"placeholder","placeholder",-104873083),"Name"], null),new cljs.core.PersistentVector(null, 11, 5, cljs.core.PersistentVector.EMPTY_NODE, [re_com.core.input_textarea,new cljs.core.Keyword(null,"model","model",331153215),"",new cljs.core.Keyword(null,"on-change","on-change",-732046149),((function (add_new_open,add_new_title,add_new_list){
-return (function (p1__25895_SHARP_){
-return cljs.core.reset_BANG_.call(null,add_new_list,p1__25895_SHARP_);
+return (function (p1__25533_SHARP_){
+return cljs.core.reset_BANG_.call(null,add_new_list,p1__25533_SHARP_);
 });})(add_new_open,add_new_title,add_new_list))
-,new cljs.core.Keyword(null,"placeholder","placeholder",-104873083),"List",new cljs.core.Keyword(null,"height","height",1025178622),"200px",new cljs.core.Keyword(null,"width","width",-384071477),"100%"], null),new cljs.core.PersistentVector(null, 5, 5, cljs.core.PersistentVector.EMPTY_NODE, [re_com.core.button,new cljs.core.Keyword(null,"label","label",1718410804),"Add",new cljs.core.Keyword(null,"on-click","on-click",1632826543),((function (add_new_open,add_new_title,add_new_list){
+,new cljs.core.Keyword(null,"placeholder","placeholder",-104873083),"List",new cljs.core.Keyword(null,"rows","rows",850049680),(10),new cljs.core.Keyword(null,"width","width",-384071477),"100%"], null),new cljs.core.PersistentVector(null, 5, 5, cljs.core.PersistentVector.EMPTY_NODE, [re_com.core.button,new cljs.core.Keyword(null,"label","label",1718410804),"Add",new cljs.core.Keyword(null,"on-click","on-click",1632826543),((function (add_new_open,add_new_title,add_new_list){
 return (function (){
 re_frame.core.dispatch.call(null,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"add-bookstack","add-bookstack",776640780),cljs.core.deref.call(null,add_new_title),cljs.core.deref.call(null,add_new_list)], null));
 
@@ -41,18 +42,18 @@ return cljs.core.swap_BANG_.call(null,add_new_open,cljs.core.not);
 ], null)], null)], null)], null)], null);
 });
 bookstacks.views.search = (function bookstacks$views$search(search_term){
-return new cljs.core.PersistentVector(null, 9, 5, cljs.core.PersistentVector.EMPTY_NODE, [re_com.core.input_text,new cljs.core.Keyword(null,"model","model",331153215),search_term,new cljs.core.Keyword(null,"change-on-blur?","change-on-blur?",854283925),false,new cljs.core.Keyword(null,"placeholder","placeholder",-104873083),"Search Stacks & Books",new cljs.core.Keyword(null,"on-change","on-change",-732046149),(function (p1__25896_SHARP_){
-return re_frame.core.dispatch.call(null,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"update-search-term","update-search-term",-1725569553),p1__25896_SHARP_], null));
+return new cljs.core.PersistentVector(null, 9, 5, cljs.core.PersistentVector.EMPTY_NODE, [re_com.core.input_text,new cljs.core.Keyword(null,"model","model",331153215),search_term,new cljs.core.Keyword(null,"change-on-blur?","change-on-blur?",854283925),false,new cljs.core.Keyword(null,"placeholder","placeholder",-104873083),"Search Stacks & Books",new cljs.core.Keyword(null,"on-change","on-change",-732046149),(function (p1__25534_SHARP_){
+return re_frame.core.dispatch.call(null,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"update-search-term","update-search-term",-1725569553),p1__25534_SHARP_], null));
 })], null);
 });
 bookstacks.views.read_status = (function bookstacks$views$read_status(status,book,list){
 var tabs = reagent.core.atom.call(null,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"id","id",-1388402092),new cljs.core.Keyword(null,"unread","unread",-1950424572),new cljs.core.Keyword(null,"label","label",1718410804),"Unread"], null),new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"id","id",-1388402092),new cljs.core.Keyword(null,"reading","reading",-409289668),new cljs.core.Keyword(null,"label","label",1718410804),"Reading"], null),new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"id","id",-1388402092),new cljs.core.Keyword(null,"read","read",1140058661),new cljs.core.Keyword(null,"label","label",1718410804),"Read"], null)], null));
 var status__$1 = reagent.core.atom.call(null,status);
 return new cljs.core.PersistentVector(null, 7, 5, cljs.core.PersistentVector.EMPTY_NODE, [re_com.core.horizontal_bar_tabs,new cljs.core.Keyword(null,"tabs","tabs",-779855354),tabs,new cljs.core.Keyword(null,"model","model",331153215),status__$1,new cljs.core.Keyword(null,"on-change","on-change",-732046149),((function (tabs,status__$1){
-return (function (p1__25897_SHARP_){
-cljs.core.reset_BANG_.call(null,status__$1,p1__25897_SHARP_);
+return (function (p1__25535_SHARP_){
+cljs.core.reset_BANG_.call(null,status__$1,p1__25535_SHARP_);
 
-return re_frame.core.dispatch.call(null,new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"update-read-status","update-read-status",-1675555937),p1__25897_SHARP_,book,list], null));
+return re_frame.core.dispatch.call(null,new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"update-read-status","update-read-status",-1675555937),p1__25535_SHARP_,book,list], null));
 });})(tabs,status__$1))
 ], null);
 });
@@ -61,10 +62,13 @@ return cljs.core.into.call(null,new cljs.core.PersistentVector(null, 1, 5, cljs.
 return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"li","li",723558921),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"a","a",-2123407586),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"href","href",-793805698),[cljs.core.str("/#/stacks/"),cljs.core.str(stack)].join('')], null),stack], null)], null);
 }),stacks));
 });
+bookstacks.views.bookstack_row = (function bookstacks$views$bookstack_row(stack,book){
+return new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.keyword.call(null,[cljs.core.str("li."),cljs.core.str(cljs.core.name.call(null,new cljs.core.Keyword(null,"status","status",-1997798413).cljs$core$IFn$_invoke$arity$1(book)))].join('')),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"span","span",1394872991),new cljs.core.Keyword(null,"title","title",636505583).cljs$core$IFn$_invoke$arity$1(book)], null),bookstacks.views.read_status.call(null,new cljs.core.Keyword(null,"status","status",-1997798413).cljs$core$IFn$_invoke$arity$1(book),book,stack)], null);
+});
 bookstacks.views.bookstack = (function bookstacks$views$bookstack(stack){
-return new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.booklist","div.booklist",-175161908),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"h3","h3",2067611163),new cljs.core.Keyword(null,"name","name",1843675177).cljs$core$IFn$_invoke$arity$1(stack)], null),cljs.core.into.call(null,new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"ul","ul",-1349521403)], null),cljs.core.map.call(null,(function (p1__25898_SHARP_){
-return (new cljs.core.PersistentVector(null,3,(5),cljs.core.PersistentVector.EMPTY_NODE,[cljs.core.keyword.call(null,[cljs.core.str("li."),cljs.core.str(cljs.core.name.call(null,new cljs.core.Keyword(null,"status","status",-1997798413).cljs$core$IFn$_invoke$arity$1(p1__25898_SHARP_)))].join('')),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"span","span",1394872991),new cljs.core.Keyword(null,"title","title",636505583).cljs$core$IFn$_invoke$arity$1(p1__25898_SHARP_)], null),bookstacks.views.read_status.call(null,new cljs.core.Keyword(null,"status","status",-1997798413).cljs$core$IFn$_invoke$arity$1(p1__25898_SHARP_),p1__25898_SHARP_,stack)],null));
-}),new cljs.core.Keyword(null,"books","books",-2005362272).cljs$core$IFn$_invoke$arity$1(stack)))], null);
+var row = cljs.core.partial.call(null,bookstacks.views.bookstack_row,stack);
+var books = cljs.core.group_by.call(null,new cljs.core.Keyword(null,"status","status",-1997798413),new cljs.core.Keyword(null,"books","books",-2005362272).cljs$core$IFn$_invoke$arity$1(stack));
+return new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.booklist","div.booklist",-175161908),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"h3","h3",2067611163),new cljs.core.Keyword(null,"name","name",1843675177).cljs$core$IFn$_invoke$arity$1(stack)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [re_com.core.h_box,new cljs.core.Keyword(null,"children","children",-940561982),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.into.call(null,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"ul","ul",-1349521403),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"h4","h4",2004862993),"Unread"], null)], null),cljs.core.map.call(null,row,cljs.core.sort_by.call(null,cljs.core.partial.call(null,bookstacks.utils.stack_sort,new cljs.core.Keyword(null,"name","name",1843675177).cljs$core$IFn$_invoke$arity$1(stack)),cljs.core.concat.call(null,new cljs.core.Keyword(null,"reading","reading",-409289668).cljs$core$IFn$_invoke$arity$1(books),new cljs.core.Keyword(null,"unread","unread",-1950424572).cljs$core$IFn$_invoke$arity$1(books))))),cljs.core.into.call(null,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"ul","ul",-1349521403),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"h4","h4",2004862993),"Read"], null)], null),cljs.core.map.call(null,row,cljs.core.sort_by.call(null,cljs.core.partial.call(null,bookstacks.utils.stack_sort,new cljs.core.Keyword(null,"name","name",1843675177).cljs$core$IFn$_invoke$arity$1(stack)),new cljs.core.Keyword(null,"read","read",1140058661).cljs$core$IFn$_invoke$arity$1(books))))], null)], null)], null);
 });
 bookstacks.views.home_panel = (function bookstacks$views$home_panel(){
 var current_stack = re_frame.core.subscribe.call(null,new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"current-stack","current-stack",-1546696626)], null));
@@ -113,4 +117,4 @@ return new cljs.core.PersistentVector(null, 5, 5, cljs.core.PersistentVector.EMP
 ;})(active_panel))
 });
 
-//# sourceMappingURL=views.js.map?rel=1474490185605
+//# sourceMappingURL=views.js.map?rel=1474563177226

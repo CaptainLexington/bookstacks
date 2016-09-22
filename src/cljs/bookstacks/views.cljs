@@ -2,7 +2,8 @@
   (:require [reagent.core :as reagent]
             [re-frame.core :as re-frame]
             [re-com.core :as re-com]
-            [camel-snake-kebab.core :as case]))
+            [camel-snake-kebab.core :as case]
+            [bookstacks.utils :as utils]))
 
 
 ;; home
@@ -43,11 +44,13 @@
                        [re-com/input-textarea :model ""
                         :on-change #(reset! add-new-list %)
                         :placeholder "List"
-                        :height "200px"
+                        :rows 10
                         :width "100%"]
                        [re-com/button 
                         :label "Add"
-                        :on-click #(do (re-frame/dispatch [:add-bookstack @add-new-title @add-new-list])
+                        :on-click #(do (re-frame/dispatch [:add-bookstack 
+                                                           @add-new-title 
+                                                           @add-new-list])
                                        (swap! add-new-open not) )]]]]]))
 (defn search
   [search-term]
@@ -78,16 +81,30 @@
         (mapv (fn [stack]
                 [:li
                  [:a {:href (str "/#/stacks/" stack)} 
-                     stack]])
+                  stack]])
               stacks)))
 
+(defn bookstack-row [stack book]
+  [(keyword (str "li." (name (:status book))))
+   [:span  (:title book)]
+   (read-status (:status book) book stack)])
+
 (defn bookstack [stack]
-  [:div.booklist  [:h3 (:name stack)]
-   (into [:ul]
-         (map #(vector (keyword (str "li." (name (:status %))))
-                       [:span  (:title %)]
-                       (read-status (:status %) % stack))
-              (:books stack)))])
+  (let [row (partial bookstack-row stack)
+        books (group-by :status (:books stack))]
+    [:div.booklist  [:h3 (:name stack)]
+     [re-com/h-box
+      :children [ 
+                 (into [:ul [:h4 "Unread"]]
+                       (map row 
+                            (sort-by (partial utils/stack-sort (:name stack))
+                                     (concat 
+                                       (:reading books)
+                                       (:unread books)))))
+                 (into [:ul [:h4 "Read"]]
+                       (map row 
+                            (sort-by (partial utils/stack-sort (:name stack))
+                                     (:read books))))]]]))
 
 (defn home-panel []
   (let [current-stack (re-frame/subscribe [:current-stack])

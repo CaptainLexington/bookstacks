@@ -26,16 +26,18 @@
   (fn [db]
     (let [query (reaction (:search-term db))
           current-stack (reaction (:current-stack db))]
-      (filter-stacks (:stacks db) @query @current-stack))))
+      (sort (filter-stacks (:stacks db) 
+                           @query 
+                           @current-stack)))))
+
 
 (defn get-stack [books stack] 
-  (sort-by :index 
-           (filter 
-             (fn [book]
-               (some #(= (:name %) 
-                         stack)
-                     (:stacks book)))
-             books)))
+  (filter 
+    (fn [book]
+      (some #(= (:name %) 
+                stack)
+            (:stacks book)))
+    books))
 
 (re-frame/reg-sub 
   :current-stack 

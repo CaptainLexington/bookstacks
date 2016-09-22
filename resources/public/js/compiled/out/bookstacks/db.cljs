@@ -10,14 +10,14 @@
             :status :reading
             :stacks [{:name "The Flashman Papers"
                       :index 1}]},
-           {:title "Flash for Freedom!"
-            :status :unread
-            :stacks [{:name "The Flashman Papers"
-                      :index 2}]},
            {:title "Flashman at the Charge"
             :status :unread
             :stacks [{:name "The Flashman Papers"
                       :index 3}]},
+           {:title "Flashman and the Angel of the Lord"
+            :status :unread
+            :stacks [{:name "The Flashman Papers"
+                      :index 9}]},
            {:title "Flashman in the Great Game"
             :status :unread
             :stacks [{:name "The Flashman Papers"
@@ -30,6 +30,10 @@
             :status :unread
             :stacks [{:name "The Flashman Papers"
                       :index 6}]},
+           {:title "Flash for Freedom!"
+            :status :unread
+            :stacks [{:name "The Flashman Papers"
+                      :index 2}]},
            {:title "Flashman and the Dragon"
             :status :unread
             :stacks [{:name "The Flashman Papers"
@@ -38,10 +42,6 @@
             :status :unread
             :stacks [{:name "The Flashman Papers"
                       :index 8}]},
-           {:title "Flashman and the Angel of the Lord"
-            :status :unread
-            :stacks [{:name "The Flashman Papers"
-                      :index 9}]},
            {:title "Flashman and the Tiger"
             :status :unread
             :stacks [{:name "The Flashman Papers"
@@ -98,18 +98,19 @@
                       :index 0}
                      {:name "Inklings fantasy novels"
                       :index 7}]},
-           {:title "The Two Towers"
+           {:title "The Return of the King"
             :status :unread
             :stacks [{:name "The Lord of the Rings"
-                      :index 1}
+                      :index 2}
                      {:name "Inklings fantasy novels"
-                      :index 8}]},
-{:title "The Return of the King"
+                      :index 9}]},
+{:title "The Two Towers"
  :status :unread
  :stacks [{:name "The Lord of the Rings"
-           :index 2}
+           :index 1}
           {:name "Inklings fantasy novels"
-           :index 9}]},]
+           :index 8}]}]
+
 :stacks #{"The Flashman Papers"
           "The Chronicles of Narnia"
           "The Lord of the Rings"
