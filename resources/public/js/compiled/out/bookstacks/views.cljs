@@ -93,20 +93,27 @@
 
 (defn bookstack [stack]
   (let [row (partial bookstack-row stack)
-        books (group-by :status (:books stack))]
+        books (group-by :status (:books stack))
+        unread-books (sort-by (partial utils/stack-sort (:name stack))
+                              (concat 
+                                (:reading books)
+                                (:unread books)))
+        read-books (sort-by (partial utils/stack-sort (:name stack))
+                            (:read books))
+        ]
     [:div.booklist  [:h3 (:name stack)]
      [re-com/h-box
       :children [ 
                  (into [:ul [:h4 "Unread"]]
-                       (map row 
-                            (sort-by (partial utils/stack-sort (:name stack))
-                                     (concat 
-                                       (:reading books)
-                                       (:unread books)))))
+                       (if (zero? (count unread-books)) 
+                         "You've read every book in this stack. Go watch a movie!"
+                         (map row 
+                              unread-books)))
                  (into [:ul [:h4 "Read"]]
-                       (map row 
-                            (sort-by (partial utils/stack-sort (:name stack))
-                                     (:read books))))]]]))
+                       (if (zero? (count read-books))
+                         "You haven't read any of the books in this stack. Crack one open!" 
+                         (map row 
+                              read-books)))]]]))
 
 (defn home-panel []
   (let [current-stack (re-frame/subscribe [:current-stack])
