@@ -2,6 +2,11 @@
   (:require [re-frame.core :as re-frame]
             [bookstacks.db :as db]))
 
+(defn update [data]
+  (db/update-user data)
+  data)
+
+
 (re-frame/reg-event-db
   :initialize-db
   (fn  [_ _]
@@ -15,6 +20,7 @@
 (re-frame/reg-event-db
   :add-bookstack
   (fn [db [_ new-title new-list]]
+    (update 
     (assoc db
            :books 
            (vec (concat 
@@ -31,16 +37,17 @@
                       #"\n"))))
            :stacks
            (conj (:stacks db)
-                 new-title))))
+                 new-title)))))
 
 (re-frame/reg-event-db
   :update-read-status
   (fn [db [_ status book]]
+    (update 
     (assoc-in db
               [:books 
                (.indexOf (:books db) book)
                :status]
-              status)))
+              status))))
 
 (re-frame/reg-event-db
   :update-search-term

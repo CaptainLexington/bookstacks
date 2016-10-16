@@ -18,8 +18,8 @@ throw (new Error("Assert failed: (re-frame.registrar/kinds kind)"));
  *   This function is 9/10 about giving good error messages
  */
 re_frame.events.flatten_and_remove_nils = (function re_frame$events$flatten_and_remove_nils(id,interceptors){
-var make_chain = (function (p1__25775_SHARP_){
-return cljs.core.remove.call(null,cljs.core.nil_QMARK_,cljs.core.flatten.call(null,p1__25775_SHARP_));
+var make_chain = (function (p1__29264_SHARP_){
+return cljs.core.remove.call(null,cljs.core.nil_QMARK_,cljs.core.flatten.call(null,p1__29264_SHARP_));
 });
 if(!(re_frame.interop.debug_enabled_QMARK_)){
 return make_chain.call(null,interceptors);
@@ -35,13 +35,13 @@ re_frame.loggers.console.call(null,new cljs.core.Keyword(null,"error","error",-9
 } else {
 }
 
-var temp__4657__auto___25776 = cljs.core.first.call(null,cljs.core.remove.call(null,re_frame.interceptor.interceptor_QMARK_,chain));
-if(cljs.core.truth_(temp__4657__auto___25776)){
-var not_i_25777 = temp__4657__auto___25776;
-if(cljs.core.fn_QMARK_.call(null,not_i_25777)){
-re_frame.loggers.console.call(null,new cljs.core.Keyword(null,"error","error",-978969032),"re-frame: when registering ",id,", got a function instead of an interceptor. Did you provide old style middleware by mistake? Got: ",not_i_25777);
+var temp__4657__auto___29265 = cljs.core.first.call(null,cljs.core.remove.call(null,re_frame.interceptor.interceptor_QMARK_,chain));
+if(cljs.core.truth_(temp__4657__auto___29265)){
+var not_i_29266 = temp__4657__auto___29265;
+if(cljs.core.fn_QMARK_.call(null,not_i_29266)){
+re_frame.loggers.console.call(null,new cljs.core.Keyword(null,"error","error",-978969032),"re-frame: when registering ",id,", got a function instead of an interceptor. Did you provide old style middleware by mistake? Got: ",not_i_29266);
 } else {
-re_frame.loggers.console.call(null,new cljs.core.Keyword(null,"error","error",-978969032),"re-frame: when registering ",id,", expected interceptors, but got: ",not_i_25777);
+re_frame.loggers.console.call(null,new cljs.core.Keyword(null,"error","error",-978969032),"re-frame: when registering ",id,", expected interceptors, but got: ",not_i_29266);
 }
 } else {
 }
@@ -73,15 +73,15 @@ var interceptors = temp__4655__auto__;
 if(cljs.core.truth_(re_frame.events._STAR_handling_STAR_)){
 return re_frame.loggers.console.call(null,new cljs.core.Keyword(null,"error","error",-978969032),"re-frame: while handling \"",re_frame.events._STAR_handling_STAR_,"\"  dispatch-sync was called for \"",event_v,"\". You can't call dispatch-sync within an event handler.");
 } else {
-var _STAR_handling_STAR_25779 = re_frame.events._STAR_handling_STAR_;
+var _STAR_handling_STAR_29268 = re_frame.events._STAR_handling_STAR_;
 re_frame.events._STAR_handling_STAR_ = event_v;
 
 try{return re_frame.interceptor.execute.call(null,event_v,interceptors);
-}finally {re_frame.events._STAR_handling_STAR_ = _STAR_handling_STAR_25779;
+}finally {re_frame.events._STAR_handling_STAR_ = _STAR_handling_STAR_29268;
 }}
 } else {
 return null;
 }
 });
 
-//# sourceMappingURL=events.js.map?rel=1474484605809
+//# sourceMappingURL=events.js.map?rel=1476574112130

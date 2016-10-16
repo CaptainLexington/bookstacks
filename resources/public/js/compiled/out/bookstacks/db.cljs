@@ -1,7 +1,11 @@
-(ns bookstacks.db)
+(ns bookstacks.db
+  (:require [ajax.core :refer [POST GET]]))
 
 (def default-db
   {:name "Bookstacks Online"
+   :_id "58027964d482a9608a0e3395"
+   :facebookID ""
+   :googleID ""
    :books [{:title "Flashman"
             :status :read
             :stacks [{:name "The Flashman Papers"
@@ -138,3 +142,8 @@
           "Inklings fantasy novels" }
 :search-term ""
 :current-stack "The Flashman Papers"})
+
+(defn update-user [user]
+  (POST "/update"
+        {:params user
+         :format :json}))
