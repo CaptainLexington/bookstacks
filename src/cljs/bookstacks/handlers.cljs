@@ -17,37 +17,56 @@
   (fn [db [_ active-panel]]
     (assoc db :active-panel active-panel)))
 
+(defn process-books [book]
+  (assoc book
+         :status
+         (keyword (:status book))))
+
+(re-frame/reg-event-db 
+  :load-user
+  (fn [db [_ user]]
+    (let [books (mapv process-books
+                      (:books user))
+          newdb (assoc db
+                       :books
+                       books
+                       :stacks
+                       (set (:stacks user))
+                       )]
+      newdb)))
+
+
 (re-frame/reg-event-db
   :add-bookstack
   (fn [db [_ new-title new-list]]
     (update 
-    (assoc db
-           :books 
-           (vec (concat 
-                  (:books db)
-                  (map-indexed
-                    (fn [index title]
-                     (hash-map
-                      :title title
-                      :status :unread
-                      :stacks [{:name new-title
-                                :index index}]))
-                    (clojure.string/split 
-                      new-list
-                      #"\n"))))
-           :stacks
-           (conj (:stacks db)
-                 new-title)))))
+      (assoc db
+             :books 
+             (vec (concat 
+                    (:books db)
+                    (map-indexed
+                      (fn [index title]
+                        (hash-map
+                          :title title
+                          :status :unread
+                          :stacks [{:name new-title
+                                    :index index}]))
+                      (clojure.string/split 
+                        new-list
+                        #"\n"))))
+             :stacks
+             (conj (:stacks db)
+                   new-title)))))
 
 (re-frame/reg-event-db
   :update-read-status
   (fn [db [_ status book]]
     (update 
-    (assoc-in db
-              [:books 
-               (.indexOf (:books db) book)
-               :status]
-              status))))
+      (assoc-in db
+                [:books 
+                 (.indexOf (:books db) book)
+                 :status]
+                status))))
 
 (re-frame/reg-event-db
   :update-search-term
@@ -61,5 +80,5 @@
   (fn [db [_ stack-name]]
     (assoc db
            :current-stack (clojure.string/replace stack-name
-                                            "_"
-                                            " "))))
+                                                  "_"
+                                                  " "))))
