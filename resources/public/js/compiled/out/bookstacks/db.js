@@ -8,10 +8,12 @@ bookstacks.db.update_user = (function bookstacks$db$update_user(user){
 return ajax.core.POST.call(null,"/update",new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"params","params",710516235),user,new cljs.core.Keyword(null,"format","format",-1306924766),new cljs.core.Keyword(null,"json","json",1279968570)], null));
 });
 bookstacks.db.get_user = (function bookstacks$db$get_user(id){
-return ajax.core.GET.call(null,[cljs.core.str("/get-user/"),cljs.core.str(id)].join(''),new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"handler","handler",-195596612),(function (p1__29098_SHARP_){
-return re_frame.core.dispatch.call(null,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"load-user","load-user",-1622997493),p1__29098_SHARP_], null));
+return ajax.core.GET.call(null,[cljs.core.str("/get-user/"),cljs.core.str(id)].join(''),new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"handler","handler",-195596612),(function (p1__29368_SHARP_){
+return re_frame.core.dispatch.call(null,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"load-user","load-user",-1622997493),p1__29368_SHARP_], null));
 }),new cljs.core.Keyword(null,"response-format","response-format",1664465322),ajax.core.json_response_format.call(null,new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"keywords?","keywords?",764949733),true], null))], null));
 });
-bookstacks.db.get_user.call(null,"58027964d482a9608a0e3395");
+bookstacks.db.setTimeout.call(null,window,(function (){
+return bookstacks.db.get_user.call(null,"58027964d482a9608a0e3395");
+}),(1000));
 
-//# sourceMappingURL=db.js.map?rel=1476718269319
+//# sourceMappingURL=db.js.map?rel=1476730509947

@@ -22,4 +22,7 @@
        {:handler #(re-frame/dispatch [:load-user %])
         :response-format (ajax.core/json-response-format {:keywords? true })}))
 
-(get-user  "58027964d482a9608a0e3395")
+
+(setTimeout js/window 
+  #(get-user  "58027964d482a9608a0e3395")
+  1000)

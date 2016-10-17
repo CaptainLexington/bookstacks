@@ -80,3 +80,11 @@
            :current-stack (clojure.string/replace stack-name
                                                   "_"
                                                   " "))))
+
+(re-frame/reg-event-db
+  :delete-book
+  (fn [db [_ book]]
+    (update 
+      (assoc db
+             :books
+             (remove #(= % book) (:books db))))))

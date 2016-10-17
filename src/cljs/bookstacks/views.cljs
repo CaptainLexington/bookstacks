@@ -78,19 +78,23 @@
 
 (defn bookstack-nav [stacks current-stack]
   (let [all-stacks (clojure.set/union stacks #{"In Progress"})]
-  (into [:nav ]
-        (mapv (fn [stack]
-                [:li
-                 [:a {:href (str "/#/stacks/" (clojure.string/replace stack
-                                                                      " "
-                                                                      "_"))} 
-                  stack]])
-              all-stacks))))
+    (into [:nav ]
+          (mapv (fn [stack]
+                  [:li
+                   [:a {:href (str "/#/stacks/" (clojure.string/replace stack
+                                                                        " "
+                                                                        "_"))} 
+                    stack]])
+                all-stacks))))
 
 (defn bookstack-row [stack book]
   [(keyword (str "li." (name (:status book))))
    [:span  (:title book)]
-   (read-status (:status book) book stack)])
+   (read-status (:status book) book stack)
+   [re-com/md-icon-button
+    :md-icon-name "zmdi-delete"
+    :size :smaller
+    :on-click #(re-frame/dispatch [:delete-book book])]])
 
 (defn bookstack [stack]
   (let [row (partial bookstack-row stack)
