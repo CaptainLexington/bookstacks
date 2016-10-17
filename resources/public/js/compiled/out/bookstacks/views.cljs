@@ -89,16 +89,19 @@
 
 (defn bookstack-row [stack book]
   [(keyword (str "li." (name (:status book))))
-   [re-com/input-text
-    :model (:title book)
-    :width "204px"
-    :on-change #(re-frame/dispatch [:update-book-title % book])]
+   (if (:editing? book) 
+     [re-com/input-text
+      :model (:title book)
+      :width "204px"
+      :on-change #(re-frame/dispatch [:update-book-title % book])]
+     [:span (:title book)])
    (read-status (:status book) book stack)
    [re-com/h-box
     :class "modify-book"
     :children [[re-com/md-icon-button
                 :md-icon-name "zmdi-edit"
-                :size :smaller ]
+                :size :smaller 
+                :on-click #(re-frame/dispatch [:edit-book-title book])]
                [re-com/md-icon-button
                 :md-icon-name "zmdi-delete"
                 :size :smaller
