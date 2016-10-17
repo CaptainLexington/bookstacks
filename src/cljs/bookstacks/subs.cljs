@@ -30,14 +30,19 @@
                            @query 
                            @current-stack)))))
 
-
-(defn get-stack [books stack] 
-  (filter 
+(defn test-by-stack [stack]
+  (case stack
+    "In Progress" #(= :reading (:status %))
     (fn [book]
       (some #(= (:name %) 
                 stack)
-            (:stacks book)))
-    books))
+            (:stacks book)))))
+
+
+(defn get-stack [books stack] 
+  (filter 
+   (test-by-stack stack) 
+   books))
 
 (re-frame/reg-sub 
   :current-stack 

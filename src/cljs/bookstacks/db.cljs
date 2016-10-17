@@ -8,14 +8,9 @@
    :facebookID ""
    :googleID ""
    :books []
-
-   :stacks #{"The Flashman Papers"
-             "The Chronicles of Narnia"
-             "The Lord of the Rings"
-             "The Hitchhiker's Guide to the Galaxy"
-             "Inklings fantasy novels" }
+   :stacks #{}
    :search-term ""
-   :current-stack "The Flashman Papers"})
+   :current-stack "In Progress"})
 
 (defn update-user [user]
   (POST "/update"

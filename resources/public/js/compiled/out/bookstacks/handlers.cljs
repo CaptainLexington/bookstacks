@@ -31,10 +31,8 @@
                        :books
                        books
                        :stacks
-                       (set (:stacks user))
-                       )]
+                       (set (:stacks user)))]
       newdb)))
-
 
 (re-frame/reg-event-db
   :add-bookstack

@@ -77,6 +77,7 @@
                    (re-frame/dispatch [:update-read-status % book list]))]))
 
 (defn bookstack-nav [stacks current-stack]
+  (let [all-stacks (clojure.set/union stacks #{"In Progress"})]
   (into [:nav ]
         (mapv (fn [stack]
                 [:li
@@ -84,7 +85,7 @@
                                                                       " "
                                                                       "_"))} 
                   stack]])
-              stacks)))
+              all-stacks))))
 
 (defn bookstack-row [stack book]
   [(keyword (str "li." (name (:status book))))
@@ -99,8 +100,7 @@
                                 (:reading books)
                                 (:unread books)))
         read-books (sort-by (partial utils/stack-sort (:name stack))
-                            (:read books))
-        ]
+                            (:read books))]
     [:div.booklist  [:h3 (:name stack)]
      [re-com/h-box
       :children [ 
