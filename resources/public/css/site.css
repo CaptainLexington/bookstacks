@@ -17,6 +17,7 @@ ul li {
   -webkit-user-select: none;
   width: 250px;
   min-height: 40px;
+  position: relative;
 }
 ul .unread {
   color: White;
@@ -32,11 +33,15 @@ ul .read {
 }
 ul span {
   display: inline-block;
+  width: 70%;
 }
 nav li {
   cursor: Pointer;
   list-style: none;
 }
-div.book-button {
-  float: right;
+.modify-book {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px;
 }

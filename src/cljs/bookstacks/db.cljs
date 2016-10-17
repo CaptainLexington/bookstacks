@@ -23,6 +23,5 @@
         :response-format (ajax.core/json-response-format {:keywords? true })}))
 
 
-(setTimeout js/window 
-  #(get-user  "58027964d482a9608a0e3395")
-  1000)
+(set! (.-onload js/window) 
+      #(get-user  "58027964d482a9608a0e3395"))

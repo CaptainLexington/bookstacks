@@ -27,12 +27,12 @@
     [:div.add
      [re-com/popover-anchor-wrapper
       :anchor [re-com/button 
-               :label "Add New List"
+               :label "Add New Stack"
                :on-click #(swap! add-new-open not)]
       :showing? add-new-open
       :position :right-below
       :popover [re-com/popover-content-wrapper 
-                :title "Add New List"
+                :title "Add New Stack"
                 :showing? add-new-open 
                 :position :right-below
                 :width "400px"
@@ -43,7 +43,7 @@
                         :placeholder "Name"]
                        [re-com/input-textarea :model ""
                         :on-change #(reset! add-new-list %)
-                        :placeholder "List"
+                        :placeholder "Books"
                         :rows 10
                         :width "100%"]
                        [re-com/button 
@@ -89,12 +89,20 @@
 
 (defn bookstack-row [stack book]
   [(keyword (str "li." (name (:status book))))
-   [:span  (:title book)]
+   [re-com/input-text
+    :model (:title book)
+    :width "204px"
+    :on-change #(re-frame/dispatch [:update-book-title % book])]
    (read-status (:status book) book stack)
-   [re-com/md-icon-button
-    :md-icon-name "zmdi-delete"
-    :size :smaller
-    :on-click #(re-frame/dispatch [:delete-book book])]])
+   [re-com/h-box
+    :class "modify-book"
+    :children [[re-com/md-icon-button
+                :md-icon-name "zmdi-edit"
+                :size :smaller ]
+               [re-com/md-icon-button
+                :md-icon-name "zmdi-delete"
+                :size :smaller
+                :on-click #(re-frame/dispatch [:delete-book book])]]]])
 
 (defn bookstack [stack]
   (let [row (partial bookstack-row stack)
