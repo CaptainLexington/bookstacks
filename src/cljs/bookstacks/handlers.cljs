@@ -84,12 +84,11 @@
 (re-frame/reg-event-db
   :edit-book-title
   (fn [db [_ book]]
-    (update
-      (assoc-in db
-                [:books 
-                 (.indexOf (:books db) book)
-                 :editing?]
-                true))))
+    (assoc-in db
+              [:books 
+               (.indexOf (:books db) book)
+               :editing?]
+              true)))
 
 (re-frame/reg-event-db
   :update-book-title
