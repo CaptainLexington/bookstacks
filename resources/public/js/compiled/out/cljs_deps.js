@@ -74,8 +74,8 @@ goog.addDependency("../cognitect/transit.js", ['cognitect.transit'], ['com.cogni
 goog.addDependency("../ajax/xhrio.js", ['ajax.xhrio'], ['goog.net.XhrManager', 'goog.net.XhrIo', 'goog.json', 'goog.Uri', 'cljs.core', 'goog.net.EventType', 'ajax.protocols', 'goog.events', 'goog.net.ErrorCode']);
 goog.addDependency("../ajax/core.js", ['ajax.core'], ['goog.net.XhrIo', 'ajax.xml_http_request', 'goog.json', 'goog.Uri.QueryData', 'cljs.core', 'cognitect.transit', 'goog.structs', 'goog.json.Serializer', 'ajax.protocols', 'clojure.string', 'ajax.xhrio']);
 goog.addDependency("../bookstacks/db.js", ['bookstacks.db'], ['ajax.core', 'cljs.core', 're_frame.core']);
-goog.addDependency("../bookstacks/handlers.js", ['bookstacks.handlers'], ['bookstacks.db', 'cljs.core', 're_frame.core']);
 goog.addDependency("../bookstacks/subs.js", ['bookstacks.subs'], ['cljs.core', 'clojure.set', 'clojure.string', 're_frame.core']);
+goog.addDependency("../bookstacks/handlers.js", ['bookstacks.handlers'], ['bookstacks.db', 'cljs.core', 'bookstacks.subs', 're_frame.core']);
 goog.addDependency("../secretary/core.js", ['secretary.core'], ['cljs.core', 'clojure.string', 'clojure.walk']);
 goog.addDependency("../bookstacks/routes.js", ['bookstacks.routes'], ['cljs.core', 'goog.history.EventType', 'goog.History', 'secretary.core', 'goog.events', 're_frame.core']);
 goog.addDependency("../cljs/stacktrace.js", ['cljs.stacktrace'], ['goog.string', 'cljs.core', 'clojure.string']);
