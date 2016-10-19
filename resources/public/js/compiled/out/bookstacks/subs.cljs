@@ -21,12 +21,20 @@
        (string/lower-case  query))
     stacks))
 
+(defn generate-stacks [books]
+  (set 
+    (reduce #(concat %1 
+                     (map :name 
+                          (:stacks %2))) 
+            []
+            books)))
+
 (re-frame/reg-sub
   :stacks
   (fn [db]
     (let [query (reaction (:search-term db))
           current-stack (reaction (:current-stack db))]
-      (sort (filter-stacks (:stacks db) 
+      (sort (filter-stacks (generate-stacks (:books db)) 
                            @query 
                            @current-stack)))))
 
@@ -41,8 +49,10 @@
 
 (defn get-stack [books stack] 
   (filter 
-   (test-by-stack stack) 
-   books))
+    (test-by-stack stack) 
+    books))
+
+
 
 (re-frame/reg-sub 
   :current-stack 

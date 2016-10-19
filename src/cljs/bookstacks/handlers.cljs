@@ -1,8 +1,7 @@
 (ns bookstacks.handlers
   (:require [re-frame.core :as re-frame]
             [bookstacks.db :as db]
-            [bookstacks.subs :as sub]
-            ))
+            [bookstacks.subs :as sub]))
 
 (defn update [data]
   (db/update-user data)
@@ -58,19 +57,36 @@
              (conj (:stacks db)
                    new-title)))))
 
+(re-frame/reg-event-db
+  :delete-bookstack
+  (fn [db [_ stack]]
+    (set! (.-location js/window)
+          "/#/In_Progress")
+    (update 
+      (assoc db
+             :books
+             (vec 
+               (remove #(empty? (:stacks %))
+                       (map (fn [book] 
+                              (assoc book 
+                                     :stacks
+                                     (remove #(= (:name %) stack)
+                                             (:stacks book))))
+                            (:books db))))))))
+
 
 (re-frame/reg-event-db
   :add-book
   (fn [db [_ stack]]
-   (assoc db
-          :books
-          (conj
-            (:books db)
-            {:title ""
-             :status :unread
-             :editing? true
-             :stacks [{:name stack
-                       :index (count (sub/get-stack (:books db) stack))}]}))))
+    (assoc db
+           :books
+           (conj
+             (:books db)
+             {:title ""
+              :status :unread
+              :editing? true
+              :stacks [{:name stack
+                        :index (count (sub/get-stack (:books db) stack))}]}))))
 
 (re-frame/reg-event-db
   :update-read-status
@@ -114,7 +130,7 @@
                 [:books 
                  (.indexOf (:books db) book)]
                 (dissoc (assoc book
-                                :title title)
+                               :title title)
                         :editing?)))))
 
 (re-frame/reg-event-db

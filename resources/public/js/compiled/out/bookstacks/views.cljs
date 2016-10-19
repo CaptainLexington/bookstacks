@@ -116,11 +116,15 @@
                                 (:unread books)))
         read-books (sort-by (partial utils/stack-sort (:name stack))
                             (:read books))]
-    [:div.booklist  [:h3 (:name stack) ]
-     [re-com/md-icon-button
-
-      :md-icon-name "zmdi-plus"
-      :on-click #(re-frame/dispatch [:add-book (:name stack)])]
+    [:div.booklist 
+     [re-com/h-box 
+      :children [[:h3.stack (:name stack)]
+                 [re-com/md-icon-button
+                  :md-icon-name "zmdi-plus"
+                  :on-click #(re-frame/dispatch [:add-book (:name stack)])]
+                 [re-com/md-icon-button
+                  :md-icon-name "zmdi-delete"
+                  :on-click #(re-frame/dispatch [:delete-bookstack (:name stack)])]]]
      [re-com/h-box
       :children [ 
                  (into [:ul [:h4 "Unread"]]

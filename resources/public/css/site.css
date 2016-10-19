@@ -39,6 +39,9 @@ nav li {
   cursor: Pointer;
   list-style: none;
 }
+h3.stack {
+  margin: 0;
+}
 .modify-book {
   position: absolute;
   top: 0;
