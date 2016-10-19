@@ -7,7 +7,6 @@
   (db/update-user data)
   data)
 
-
 (re-frame/reg-event-db
   :initialize-db
   (fn  [_ _]
@@ -21,7 +20,9 @@
 (defn process-books [book]
   (assoc book
          :status
-         (keyword (:status book))))
+         (keyword (:status book))
+         :stacks
+         (clojure.walk/stringify-keys  (:stacks book))))
 
 (re-frame/reg-event-db 
   :load-user
@@ -30,9 +31,7 @@
                       (:books user))
           newdb (assoc db
                        :books
-                       books
-                       :stacks
-                       (set (:stacks user)))]
+                       books)]
       newdb)))
 
 (re-frame/reg-event-db
@@ -48,8 +47,8 @@
                         (hash-map
                           :title title
                           :status :unread
-                          :stacks [{:name new-title
-                                    :index index}]))
+                          :stacks {new-title
+                                   index}))
                       (clojure.string/split 
                         new-list
                         #"\n"))))
@@ -61,7 +60,7 @@
   :delete-bookstack
   (fn [db [_ stack]]
     (set! (.-location js/window)
-          "/#/In_Progress")
+          "/#/stacks/In_Progress")
     (update 
       (assoc db
              :books
@@ -70,8 +69,8 @@
                        (map (fn [book] 
                               (assoc book 
                                      :stacks
-                                     (remove #(= (:name %) stack)
-                                             (:stacks book))))
+                                     (remove #(= % stack)
+                                             (keys (:stacks book)))))
                             (:books db))))))))
 
 
@@ -94,7 +93,7 @@
     (update 
       (assoc-in db
                 [:books 
-                 (.indexOf (:books db) book)
+                 (.indexOf (:books db) (dissoc book :index))
                  :status]
                 status))))
 
@@ -118,7 +117,7 @@
   (fn [db [_ book]]
     (assoc-in db
               [:books 
-               (.indexOf (:books db) book)
+               (.indexOf (:books db) (dissoc book :index))
                :editing?]
               true)))
 
@@ -128,8 +127,8 @@
     (update
       (assoc-in db
                 [:books 
-                 (.indexOf (:books db) book)]
-                (dissoc (assoc book
+                 (.indexOf (:books db) (dissoc book :index))]
+                (dissoc (assoc (dissoc  book :index)
                                :title title)
                         :editing?)))))
 
@@ -139,4 +138,4 @@
     (update 
       (assoc db
              :books
-             (into [] (remove #(= % book) (:books db)))))))
+             (into [] (remove #(= % (dissoc book :index)) (:books db)))))))

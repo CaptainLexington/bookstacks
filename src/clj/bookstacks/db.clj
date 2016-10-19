@@ -18,8 +18,7 @@
 (defn get-user-by-system-id [id]
   (let [user (mc/find-map-by-id db "users" (ObjectId. id))]
     (assoc user 
-           :_id (str (:_id user))
-           :stacks (generate-stacks user))))
+           :_id (str (:_id user)))))
 
 (defn update-user [user]
   (let [userid (ObjectId. (:_id user))

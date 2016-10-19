@@ -8,7 +8,6 @@
    :facebookID ""
    :googleID ""
    :books []
-   :stacks #{}
    :search-term ""
    :current-stack "In Progress"})
 

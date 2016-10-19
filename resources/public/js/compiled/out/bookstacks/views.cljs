@@ -88,13 +88,14 @@
                 all-stacks))))
 
 (defn bookstack-row [stack book]
+  (print book)
   [(keyword (str "li." (name (:status book))))
    (if (:editing? book) 
      [re-com/input-text
       :model (:title book)
       :width "204px"
       :on-change #(re-frame/dispatch [:update-book-title % book])]
-     [:span (:title book)])
+     [:span (str (inc  (:index book)) ". " (:title book))])
    (read-status (:status book) book stack)
    [re-com/h-box
     :class "modify-book"
@@ -110,11 +111,11 @@
 (defn bookstack [stack]
   (let [row (partial bookstack-row stack)
         books (group-by :status (:books stack))
-        unread-books (sort-by (partial utils/stack-sort (:name stack))
+        unread-books (sort-by :index 
                               (concat 
                                 (:reading books)
                                 (:unread books)))
-        read-books (sort-by (partial utils/stack-sort (:name stack))
+        read-books (sort-by :index 
                             (:read books))]
     [:div.booklist 
      [re-com/h-box 
@@ -130,7 +131,7 @@
                  (into [:ul [:h4 "Unread"]]
                        (if (zero? (count unread-books)) 
                          "You've read every book in this stack. Go watch a movie!"
-                         (map row 
+                         (map row
                               unread-books)))
                  (into [:ul [:h4 "Read"]]
                        (if (zero? (count read-books))

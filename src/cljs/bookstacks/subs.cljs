@@ -18,14 +18,14 @@
   (clojure.set/select 
     #(clojure.string/includes? 
        (string/lower-case  %) 
-       (string/lower-case  query))
+       (string/lower-case query))
     stacks))
 
 (defn generate-stacks [books]
+  (print books)
   (set 
     (reduce #(concat %1 
-                     (map :name 
-                          (:stacks %2))) 
+                     (keys (:stacks %2))) 
             []
             books)))
 
@@ -42,17 +42,17 @@
   (case stack
     "In Progress" #(= :reading (:status %))
     (fn [book]
-      (some #(= (:name %) 
-                stack)
-            (:stacks book)))))
-
+      (some #(= % stack)
+            (keys (:stacks book))))))
 
 (defn get-stack [books stack] 
-  (filter 
-    (test-by-stack stack) 
-    books))
-
-
+  (map
+    #(assoc %
+            :index
+            (get (:stacks %) stack))
+    (filter 
+      (test-by-stack stack) 
+      books)))
 
 (re-frame/reg-sub 
   :current-stack 
