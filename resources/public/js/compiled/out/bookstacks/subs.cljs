@@ -22,7 +22,6 @@
     stacks))
 
 (defn generate-stacks [books]
-  (print books)
   (set 
     (reduce #(concat %1 
                      (keys (:stacks %2))) 

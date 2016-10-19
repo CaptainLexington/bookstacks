@@ -69,8 +69,8 @@
                        (map (fn [book] 
                               (assoc book 
                                      :stacks
-                                     (remove #(= % stack)
-                                             (keys (:stacks book)))))
+                                     (dissoc (:stacks book)
+                                             stack)))
                             (:books db))))))))
 
 
