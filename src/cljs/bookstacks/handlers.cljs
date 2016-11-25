@@ -100,14 +100,18 @@
 
 (re-frame/reg-event-db
   :add-book
-  (fn [db [_ stack-name]]
-    (let [new-book (book "")]
-      (assoc db
-             :books
-             (add-book
-               (:books db)
-               (assoc new-book
-                      :editing? true))))))
+  (fn [db [_ stack]]
+    (update-user
+      (let [new-book (book "")]
+        (assoc db
+               :books
+               (add-book
+                 (:books db)
+                 (add-book-to-stack
+                   (:name stack)
+                   (assoc new-book
+                          :editing? true)
+                   (count (:books stack)))))))))
 
 (re-frame/reg-event-db
   :update-read-status

@@ -120,7 +120,7 @@
       :children [[:h3.stack (:name stack)]
                  [re-com/md-icon-button
                   :md-icon-name "zmdi-plus"
-                  :on-click #(re-frame/dispatch [:add-book (:name stack)])]
+                  :on-click #(re-frame/dispatch [:add-book stack])]
                  [re-com/md-icon-button
                   :md-icon-name "zmdi-delete"
                   :on-click #(re-frame/dispatch [:delete-bookstack (:name stack)])]]]
