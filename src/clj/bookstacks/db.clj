@@ -22,5 +22,6 @@
 
 (defn update-user [user]
   (let [userid (ObjectId. (:_id user))
-        books (:books user)]
+        books (:books user)
+        stacks (:stacks user)]
     (mc/update-by-id db "users" userid {:books books})))

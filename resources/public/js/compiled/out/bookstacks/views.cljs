@@ -2,7 +2,6 @@
   (:require [reagent.core :as reagent]
             [re-frame.core :as re-frame]
             [re-com.core :as re-com]
-            [camel-snake-kebab.core :as case]
             [bookstacks.utils :as utils]))
 
 
@@ -61,7 +60,7 @@
    :on-change #(re-frame/dispatch [:update-search-term %])])
 
 (defn read-status
-  [status book list] 
+  [status book] 
   (let [tabs (reagent/atom [{:id :unread
                              :label "Unread"},
                             {:id :reading
@@ -74,7 +73,7 @@
      :model status
      :on-change #(do
                    (reset! status %)
-                   (re-frame/dispatch [:update-read-status % book list]))]))
+                   (re-frame/dispatch [:update-read-status % book]))]))
 
 (defn bookstack-nav [stacks current-stack]
   (let [all-stacks (clojure.set/union stacks #{"In Progress"})]
@@ -88,7 +87,6 @@
                 all-stacks))))
 
 (defn bookstack-row [stack book]
-  (print book)
   [(keyword (str "li." (name (:status book))))
    (if (:editing? book) 
      [re-com/input-text
@@ -96,7 +94,7 @@
       :width "204px"
       :on-change #(re-frame/dispatch [:update-book-title % book])]
      [:span (str (inc  (:index book)) ". " (:title book))])
-   (read-status (:status book) book stack)
+   (read-status (:status book) book)
    [re-com/h-box
     :class "modify-book"
     :children [[re-com/md-icon-button
@@ -106,7 +104,7 @@
                [re-com/md-icon-button
                 :md-icon-name "zmdi-delete"
                 :size :smaller
-                :on-click #(re-frame/dispatch [:delete-book book])]]]])
+                :on-click #(re-frame/dispatch [:remove-book-from-stack (:name  stack) book])]]]])
 
 (defn bookstack [stack]
   (let [row (partial bookstack-row stack)

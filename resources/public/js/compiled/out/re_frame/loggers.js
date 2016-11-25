@@ -12,23 +12,23 @@ re_frame.loggers.loggers = cljs.core.atom.call(null,new cljs.core.PersistentArra
 return cljs.core.List.EMPTY;
 }))], null));
 re_frame.loggers.console = (function re_frame$loggers$console(var_args){
-var args__26652__auto__ = [];
-var len__26645__auto___29206 = arguments.length;
-var i__26646__auto___29207 = (0);
+var args__26658__auto__ = [];
+var len__26651__auto___31008 = arguments.length;
+var i__26652__auto___31009 = (0);
 while(true){
-if((i__26646__auto___29207 < len__26645__auto___29206)){
-args__26652__auto__.push((arguments[i__26646__auto___29207]));
+if((i__26652__auto___31009 < len__26651__auto___31008)){
+args__26658__auto__.push((arguments[i__26652__auto___31009]));
 
-var G__29208 = (i__26646__auto___29207 + (1));
-i__26646__auto___29207 = G__29208;
+var G__31010 = (i__26652__auto___31009 + (1));
+i__26652__auto___31009 = G__31010;
 continue;
 } else {
 }
 break;
 }
 
-var argseq__26653__auto__ = ((((1) < args__26652__auto__.length))?(new cljs.core.IndexedSeq(args__26652__auto__.slice((1)),(0),null)):null);
-return re_frame.loggers.console.cljs$core$IFn$_invoke$arity$variadic((arguments[(0)]),argseq__26653__auto__);
+var argseq__26659__auto__ = ((((1) < args__26658__auto__.length))?(new cljs.core.IndexedSeq(args__26658__auto__.slice((1)),(0),null)):null);
+return re_frame.loggers.console.cljs$core$IFn$_invoke$arity$variadic((arguments[(0)]),argseq__26659__auto__);
 });
 
 re_frame.loggers.console.cljs$core$IFn$_invoke$arity$variadic = (function (level,args){
@@ -42,10 +42,10 @@ return cljs.core.apply.call(null,level.call(null,cljs.core.deref.call(null,re_fr
 
 re_frame.loggers.console.cljs$lang$maxFixedArity = (1);
 
-re_frame.loggers.console.cljs$lang$applyTo = (function (seq29204){
-var G__29205 = cljs.core.first.call(null,seq29204);
-var seq29204__$1 = cljs.core.next.call(null,seq29204);
-return re_frame.loggers.console.cljs$core$IFn$_invoke$arity$variadic(G__29205,seq29204__$1);
+re_frame.loggers.console.cljs$lang$applyTo = (function (seq31006){
+var G__31007 = cljs.core.first.call(null,seq31006);
+var seq31006__$1 = cljs.core.next.call(null,seq31006);
+return re_frame.loggers.console.cljs$core$IFn$_invoke$arity$variadic(G__31007,seq31006__$1);
 });
 
 /**
@@ -61,4 +61,4 @@ throw (new Error([cljs.core.str("Assert failed: "),cljs.core.str("Unknown keys i
 return cljs.core.swap_BANG_.call(null,re_frame.loggers.loggers,cljs.core.merge,new_loggers);
 });
 
-//# sourceMappingURL=loggers.js.map?rel=1476657526156
+//# sourceMappingURL=loggers.js.map?rel=1480029279535

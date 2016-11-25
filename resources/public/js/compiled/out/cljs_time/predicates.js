@@ -24,9 +24,9 @@ cljs_time.predicates.sunday_QMARK_ = (function cljs_time$predicates$sunday_QMARK
 return cljs.core._EQ_.call(null,cljs_time.core.day_of_week.call(null,date_time),(7));
 });
 cljs_time.predicates.weekend_QMARK_ = (function cljs_time$predicates$weekend_QMARK_(date_time){
-var or__25570__auto__ = cljs_time.predicates.saturday_QMARK_.call(null,date_time);
-if(cljs.core.truth_(or__25570__auto__)){
-return or__25570__auto__;
+var or__25576__auto__ = cljs_time.predicates.saturday_QMARK_.call(null,date_time);
+if(cljs.core.truth_(or__25576__auto__)){
+return or__25576__auto__;
 } else {
 return cljs_time.predicates.sunday_QMARK_.call(null,date_time);
 }
@@ -71,4 +71,4 @@ cljs_time.predicates.december_QMARK_ = (function cljs_time$predicates$december_Q
 return cljs.core._EQ_.call(null,cljs_time.core.month.call(null,date_time),(12));
 });
 
-//# sourceMappingURL=predicates.js.map?rel=1476657525070
+//# sourceMappingURL=predicates.js.map?rel=1480029278376

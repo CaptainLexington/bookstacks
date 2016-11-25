@@ -1,11 +1,31 @@
 (ns bookstacks.handlers
   (:require [re-frame.core :as re-frame]
+            [cljs-uuid-utils.core :as uuid]
             [bookstacks.db :as db]
             [bookstacks.subs :as sub]))
 
-(defn update [data]
+(defn update-user [data]
   (db/update-user data)
   data)
+
+(defn book  [title]
+  (let  [id (keyword (uuid/uuid-string
+                       (uuid/make-random-uuid)))]
+    {:id id
+     :title title
+     :status :unread
+     :stacks {}}))
+
+(defn add-book [books book]
+  (assoc books
+         (:id book)
+         book))
+
+(defn add-book-to-stack [stack-name book index]
+  (assoc-in book
+            [:stacks
+             stack-name] 
+            index))
 
 (re-frame/reg-event-db
   :initialize-db
@@ -17,18 +37,27 @@
   (fn [db [_ active-panel]]
     (assoc db :active-panel active-panel)))
 
+(defn update-values  [m f & args]
+  (reduce (fn  [r  [k v]]
+            (assoc r
+                   k
+                   (apply f v args))) 
+          {}
+          m))
+
 (defn process-books [book]
   (assoc book
          :status
          (keyword (:status book))
-         :stacks
-         (clojure.walk/stringify-keys  (:stacks book))))
+         :id
+         (keyword (:id book))
+         :stacks (clojure.walk/stringify-keys (:stacks book))))
 
 (re-frame/reg-event-db 
   :load-user
   (fn [db [_ user]]
-    (let [books (mapv process-books
-                      (:books user))
+    (let [books (update-values (:books user)
+                               process-books) 
           newdb (assoc db
                        :books
                        books)]
@@ -37,63 +66,56 @@
 (re-frame/reg-event-db
   :add-bookstack
   (fn [db [_ new-title new-list]]
-    (update 
-      (assoc db
-             :books 
-             (vec (concat 
-                    (:books db)
-                    (map-indexed
-                      (fn [index title]
-                        (hash-map
-                          :title title
-                          :status :unread
-                          :stacks {new-title
-                                   index}))
+    (let [books (mapv #(book %)
                       (clojure.string/split 
                         new-list
-                        #"\n"))))
-             :stacks
-             (conj (:stacks db)
-                   new-title)))))
+                        #"\n"))]
+      (update-user 
+        (assoc db
+               :books 
+               (reduce  #(assoc %1
+                                (:id %2)
+                                %2)
+                       (:books db)
+                       (map-indexed #(add-book-to-stack new-title %2 %1)
+                                    books)))))))
 
 (re-frame/reg-event-db
   :delete-bookstack
   (fn [db [_ stack]]
     (set! (.-location js/window)
           "/#/stacks/In_Progress")
-    (update 
+    (update-user 
       (assoc db
              :books
-             (vec 
-               (remove #(empty? (:stacks %))
-                       (map (fn [book] 
-                              (assoc book 
-                                     :stacks
-                                     (dissoc (:stacks book)
-                                             stack)))
-                            (:books db))))))))
-
+             (into {} 
+                   (remove #(empty? (:stacks (second %)))
+                           (update-values
+                             (:books db)
+                             (fn [book] 
+                               (assoc book 
+                                      :stacks
+                                      (dissoc (:stacks book)
+                                              stack))))))))))
 
 (re-frame/reg-event-db
   :add-book
-  (fn [db [_ stack]]
-    (assoc db
-           :books
-           (conj
-             (:books db)
-             {:title ""
-              :status :unread
-              :editing? true
-              :stacks [{:name stack
-                        :index (count (sub/get-stack (:books db) stack))}]}))))
+  (fn [db [_ stack-name]]
+    (let [new-book (book "")]
+      (assoc db
+             :books
+             (add-book
+               (:books db)
+               (assoc new-book
+                      :editing? true))))))
 
 (re-frame/reg-event-db
   :update-read-status
   (fn [db [_ status book]]
-    (update 
+    (update-user 
       (assoc-in db
                 [:books 
-                 (.indexOf (:books db) (dissoc book :index))
+                 (:id book)
                  :status]
                 status))))
 
@@ -117,25 +139,37 @@
   (fn [db [_ book]]
     (assoc-in db
               [:books 
-               (.indexOf (:books db) (dissoc book :index))
+               (:id book)
                :editing?]
               true)))
 
 (re-frame/reg-event-db
   :update-book-title
   (fn [db [_ title book]]
-    (update
-      (assoc-in db
-                [:books 
-                 (.indexOf (:books db) (dissoc book :index))]
-                (dissoc (assoc (dissoc  book :index)
-                               :title title)
-                        :editing?)))))
+    (let [book-with-new-title (assoc book
+                                     :title title)]
+      (update-user
+        (assoc-in db
+                  [:books 
+                   (:id book)]
+                  (dissoc book-with-new-title 
+                          :editing?))))))
+
+(defn remove-book-from-stack [stack book]
+  (dissoc (:stacks book) 
+          stack))
 
 (re-frame/reg-event-db
-  :delete-book
-  (fn [db [_ book]]
-    (update 
-      (assoc db
-             :books
-             (into [] (remove #(= % (dissoc book :index)) (:books db)))))))
+  :remove-book-from-stack
+  (fn [db [_ stack book]]
+    (update-user 
+      (let [new-stacks (remove-book-from-stack stack book)]
+        (if (empty? new-stacks)
+          (assoc db
+                 :books
+                 (dissoc (:books db) (:id book)))
+          (assoc-in db
+                    [:books
+                     (:id book) 
+                     :stacks]
+                    new-stacks))))))

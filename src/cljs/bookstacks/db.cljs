@@ -7,7 +7,8 @@
    :_id "58027964d482a9608a0e3395"
    :facebookID ""
    :googleID ""
-   :books []
+   :books {}
+   :stacks {}
    :search-term ""
    :current-stack "In Progress"})
 

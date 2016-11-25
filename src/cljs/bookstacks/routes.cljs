@@ -4,7 +4,8 @@
     (:require [secretary.core :as secretary]
               [goog.events :as events]
               [goog.history.EventType :as EventType]
-              [re-frame.core :as re-frame]))
+              [re-frame.core :as re-frame]
+              [bookstacks.db :as db]))
 
 (defn hook-browser-navigation! []
   (doto (History.)
