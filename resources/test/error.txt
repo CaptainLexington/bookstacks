@@ -1,0 +1,11 @@
+WARNING: update already refers to: cljs.core/update being replaced by: bookstacks.handlers/update at line 7 /home/captain/Development/bookstacks/src/cljs/bookstacks/handlers.cljs
+Compiling bookstacks.server
+Nov 24, 2016 4:47:02 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Cluster created with settings {hosts=[127.0.0.1:27017], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+WARNING: update already refers to: #'clojure.core/update in namespace: bookstacks.handler, being replaced by: #'bookstacks.handler/update
+Nov 24, 2016 4:47:02 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Opened connection [connectionId{localValue:1, serverValue:20}] to 127.0.0.1:27017
+Nov 24, 2016 4:47:02 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Monitor thread successfully connected to server with description ServerDescription{address=127.0.0.1:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 2, 10]}, minWireVersion=0, maxWireVersion=4, maxDocumentSize=16777216, roundTripTimeNanos=293330}
+2016-11-24 16:47:02.672:INFO::main: Logging initialized @2677ms
+WARNING: update already refers to: cljs.core/update being replaced by: bookstacks.handlers/update at line 7 src/cljs/bookstacks/handlers.cljs
