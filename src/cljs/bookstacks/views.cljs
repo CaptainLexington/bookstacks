@@ -86,13 +86,23 @@
                     stack]])
                 all-stacks))))
 
+(defn book-index-dropdown [book stack] 
+ [re-com/single-dropdown 
+  :choices (map #(hash-map :id %
+                           :label (inc %))
+                (range (count (:books stack))))
+  :model (:index book)
+  :on-change #(re-frame/dispatch [:update-book-index book stack (:index book) %])])
+
 (defn bookstack-row [stack book]
   [(keyword (str "li." (name (:status book))))
-   (if (:editing? book) 
+   (if (:editing? book)
+    [:div  
+     (book-index-dropdown book stack)
      [re-com/input-text
       :model (:title book)
       :width "204px"
-      :on-change #(re-frame/dispatch [:update-book-title % book])]
+      :on-change #(re-frame/dispatch [:update-book-title % book])]]
      [:span (str (inc  (:index book)) ". " (:title book))])
    (read-status (:status book) book)
    [re-com/h-box

@@ -27,7 +27,7 @@
 
   (defroute "/stacks/:name" {:as params} []
     (re-frame/dispatch [:set-active-panel :home-panel]) 
-    (re-frame/dispatch [:select-stack (:name  params)]))
+    (re-frame/dispatch [:select-stack (:name params)]))
 
 
   ;; --------------------

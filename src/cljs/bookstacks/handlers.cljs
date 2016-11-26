@@ -159,6 +159,28 @@
                   (dissoc book-with-new-title 
                           :editing?))))))
 
+(defn update-index [old-index new-index index]
+  (cond 
+    (= index old-index) new-index
+    (<= old-index index new-index) (dec index)
+    (<= new-index index old-index) (inc index) 
+    :else index))
+
+
+(re-frame/reg-event-db 
+  :update-book-index
+  (fn [db [_ book stack old-index new-index]]
+    (reduce #(let [index (:index %2)
+                   updated-index (update-index old-index new-index index)]
+               (assoc-in  %1
+                         [:books
+                          (:id %2)
+                          :stacks
+                          (:name stack)]
+                         updated-index))
+            db
+            (:books stack))))
+
 (defn remove-book-from-stack [stack book]
   (dissoc (:stacks book) 
           stack))
