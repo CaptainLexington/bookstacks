@@ -452,7 +452,7 @@ goog.events.getProxy/f<@http://localhost:9000/out/goog/events/events.js:276:16"
   [repl-env st err {:keys [output-dir] :as opts}]
   (letfn [(process-frame [frame-str]
             (when-not (or (string/blank? frame-str)
-                        (== -1 (.indexOf frame-str "\tat")))
+                          (== -1 (.indexOf frame-str "\tat")))
               (let [frame-str               (string/replace frame-str #"\s+at\s+" "")
                     [function file-and-line] (string/split frame-str #"\s+")
                     [file-part line-part]    (string/split file-and-line #":")]
@@ -495,6 +495,60 @@ goog.events.getProxy/f<@http://localhost:9000/out/goog/events/events.js:276:16"
     \tat <program> (<eval>:1)\n"
     {:ua-product :nashorn}
     {:output-dir ".cljs_nashorn_repl"})
+  )
+
+;; -----------------------------------------------------------------------------
+;; Node.js Stacktrace
+
+(defmethod parse-stacktrace :nodejs
+  [repl-env st err {:keys [output-dir] :as opts}]
+  (letfn [(parse-source-loc-info [x]
+            (when (and x (not (string/blank? x)))
+              (parse-int x)))
+          (process-frame [frame-str]
+            (when-not (or (string/blank? frame-str)
+                          (nil? (re-find #"^\s+at" frame-str)))
+              (let [frame-str (string/replace frame-str #"\s+at\s+" "")]
+                (when-not (string/starts-with? frame-str "repl:")
+                  (let [parts (string/split frame-str #"\s+")
+                        [function file&line] (if (== 2 (count parts))
+                                                   [(first parts)
+                                                    (subs (second parts) 1
+                                                      (dec (count (second parts))))]
+                                                   [nil (first parts)])
+                        [file-part line-part col-part] (string/split file&line #":")]
+                    {:file     (if function
+                                 (cond-> file-part
+                                   output-dir
+                                   (string/replace
+                                     (str output-dir
+                                       #?(:clj File/separator :cljs "/"))
+                                     ""))
+                                 file-part)
+                     :function function
+                     :line     (parse-source-loc-info line-part)
+                     :column   (parse-source-loc-info col-part)})))))]
+    (->> (string/split st #"\n")
+      (map process-frame)
+      (remove nil?)
+      vec)))
+
+(comment
+  (parse-stacktrace {}
+    "Error: 1 is not ISeqable
+    at cljs$core$seq (.cljs_node_repl/cljs/core.cljs:1118:20)
+    at repl:1:65
+    at repl:9:4
+    at repl:17:3
+    at repl:22:4
+    at Object.exports.runInThisContext (vm.js:54:17)
+    at Domain.<anonymous> ([stdin]:41:34)
+    at Domain.run (domain.js:228:14)
+    at Socket.<anonymous> ([stdin]:40:25)
+    at emitOne (events.js:77:13)"
+
+    {:ua-product :nodejs}
+    {:output-dir ".cljs_node_repl"})
   )
 
 ;; -----------------------------------------------------------------------------

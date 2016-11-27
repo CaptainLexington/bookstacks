@@ -1,4 +1,4 @@
-// Compiled by ClojureScript 1.9.89 {}
+// Compiled by ClojureScript 1.9.293 {}
 goog.provide('reagent.dom.server');
 goog.require('cljs.core');
 goog.require('cljsjs.react.dom.server');
@@ -18,9 +18,9 @@ if(typeof ReactDOMServer !== 'undefined'){
 return reagent.dom.server.imported = ReactDOMServer;
 } else {
 if(typeof require !== 'undefined'){
-var or__25576__auto__ = reagent.dom.server.imported = require("react-dom/server");
-if(cljs.core.truth_(or__25576__auto__)){
-return or__25576__auto__;
+var or__25974__auto__ = reagent.dom.server.imported = require("react-dom/server");
+if(cljs.core.truth_(or__25974__auto__)){
+return or__25974__auto__;
 } else {
 throw (new Error("require('react-dom/server') failed"));
 }
@@ -37,11 +37,11 @@ throw (new Error("js/ReactDOMServer is missing"));
 reagent.dom.server.render_to_string = (function reagent$dom$server$render_to_string(component){
 reagent.ratom.flush_BANG_.call(null);
 
-var _STAR_non_reactive_STAR_29601 = reagent.impl.util._STAR_non_reactive_STAR_;
+var _STAR_non_reactive_STAR_29344 = reagent.impl.util._STAR_non_reactive_STAR_;
 reagent.impl.util._STAR_non_reactive_STAR_ = true;
 
 try{return (reagent.dom.server.module.call(null)["renderToString"])(reagent.impl.template.as_element.call(null,component));
-}finally {reagent.impl.util._STAR_non_reactive_STAR_ = _STAR_non_reactive_STAR_29601;
+}finally {reagent.impl.util._STAR_non_reactive_STAR_ = _STAR_non_reactive_STAR_29344;
 }});
 /**
  * Turns a component into an HTML string, without data-react-id attributes, etc.
@@ -49,11 +49,11 @@ try{return (reagent.dom.server.module.call(null)["renderToString"])(reagent.impl
 reagent.dom.server.render_to_static_markup = (function reagent$dom$server$render_to_static_markup(component){
 reagent.ratom.flush_BANG_.call(null);
 
-var _STAR_non_reactive_STAR_29603 = reagent.impl.util._STAR_non_reactive_STAR_;
+var _STAR_non_reactive_STAR_29346 = reagent.impl.util._STAR_non_reactive_STAR_;
 reagent.impl.util._STAR_non_reactive_STAR_ = true;
 
 try{return (reagent.dom.server.module.call(null)["renderToStaticMarkup"])(reagent.impl.template.as_element.call(null,component));
-}finally {reagent.impl.util._STAR_non_reactive_STAR_ = _STAR_non_reactive_STAR_29603;
+}finally {reagent.impl.util._STAR_non_reactive_STAR_ = _STAR_non_reactive_STAR_29346;
 }});
 
-//# sourceMappingURL=server.js.map?rel=1480029275425
+//# sourceMappingURL=server.js.map?rel=1480126456941

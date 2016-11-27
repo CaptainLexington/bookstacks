@@ -1,4 +1,4 @@
-// Compiled by ClojureScript 1.9.89 {}
+// Compiled by ClojureScript 1.9.293 {}
 goog.provide('bookstacks.core');
 goog.require('cljs.core');
 goog.require('reagent.core');
@@ -34,4 +34,4 @@ return bookstacks.core.mount_root.call(null);
 });
 goog.exportSymbol('bookstacks.core.init', bookstacks.core.init);
 
-//# sourceMappingURL=core.js.map?rel=1480124369033
+//# sourceMappingURL=core.js.map?rel=1480275619828

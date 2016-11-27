@@ -1,4 +1,4 @@
-// Compiled by ClojureScript 1.9.89 {}
+// Compiled by ClojureScript 1.9.293 {}
 goog.provide('re_frame.interop');
 goog.require('cljs.core');
 goog.require('goog.async.nextTick');
@@ -16,7 +16,7 @@ return reagent.core.atom.call(null,x);
 });
 re_frame.interop.ratom_QMARK_ = (function re_frame$interop$ratom_QMARK_(x){
 if(!((x == null))){
-if((false) || (x.reagent$ratom$IReactiveAtom$)){
+if((false) || ((cljs.core.PROTOCOL_SENTINEL === x.reagent$ratom$IReactiveAtom$))){
 return true;
 } else {
 if((!x.cljs$lang$protocol_mask$partition$)){
@@ -31,7 +31,7 @@ return cljs.core.native_satisfies_QMARK_.call(null,reagent.ratom.IReactiveAtom,x
 });
 re_frame.interop.deref_QMARK_ = (function re_frame$interop$deref_QMARK_(x){
 if(!((x == null))){
-if(((x.cljs$lang$protocol_mask$partition0$ & (32768))) || (x.cljs$core$IDeref$)){
+if(((x.cljs$lang$protocol_mask$partition0$ & (32768))) || ((cljs.core.PROTOCOL_SENTINEL === x.cljs$core$IDeref$))){
 return true;
 } else {
 if((!x.cljs$lang$protocol_mask$partition0$)){
@@ -57,4 +57,4 @@ re_frame.interop.set_timeout_BANG_ = (function re_frame$interop$set_timeout_BANG
 return setTimeout(f,ms);
 });
 
-//# sourceMappingURL=interop.js.map?rel=1480029275633
+//# sourceMappingURL=interop.js.map?rel=1480126457143

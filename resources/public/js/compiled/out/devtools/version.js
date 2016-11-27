@@ -1,4 +1,4 @@
-// Compiled by ClojureScript 1.9.89 {}
+// Compiled by ClojureScript 1.9.293 {}
 goog.provide('devtools.version');
 goog.require('cljs.core');
 devtools.version.current_version = "0.6.1";
@@ -6,4 +6,4 @@ devtools.version.get_current_version = (function devtools$version$get_current_ve
 return devtools.version.current_version;
 });
 
-//# sourceMappingURL=version.js.map?rel=1480029274140
+//# sourceMappingURL=version.js.map?rel=1480126463438

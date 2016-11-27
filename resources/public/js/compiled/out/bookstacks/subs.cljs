@@ -65,7 +65,6 @@
                                       %1)
                               (get-stack @books
                                          stack-name))]
-      (print (map :stacks  stack))
       {:name stack-name 
        :books stack})))
 

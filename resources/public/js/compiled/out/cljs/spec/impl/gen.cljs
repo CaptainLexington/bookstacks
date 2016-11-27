@@ -68,7 +68,7 @@
 
 (lazy-combinators hash-map list map not-empty set vector vector-distinct fmap elements
   bind choose one-of such-that tuple sample return
-  large-integer*)
+  large-integer* double*)
 
 (lazy-prims any any-printable boolean char char-alpha char-alphanumeric char-ascii double
   int keyword keyword-ns large-integer ratio simple-type simple-type-printable
@@ -87,13 +87,15 @@ gens, each of which should generate something sequential."
 gen-builtins
   (c/delay
     (let [simple (simple-type-printable)]
-      {number? (one-of [(large-integer) (double)])
+      {any? (one-of [(return nil) (any-printable)])
+       number? (one-of [(large-integer) (double)])
        integer? (large-integer)
        int? (large-integer)
        pos-int? (large-integer* {:min 1})
        neg-int? (large-integer* {:max -1})
        nat-int? (large-integer* {:min 0})
-       ;float? (double)
+       float? (double)
+       double? (double)
        string? (string-alphanumeric)
        ident? (one-of [(keyword-ns) (symbol-ns)])
        simple-ident? (one-of [(keyword) (symbol)])
@@ -123,6 +125,7 @@ gen-builtins
        nil? (return nil)
        false? (return false)
        true? (return true)
+       boolean? (boolean)
        zero? (return 0)
        ;rational? (one-of [(large-integer) (ratio)])
        coll? (one-of [(map simple simple)

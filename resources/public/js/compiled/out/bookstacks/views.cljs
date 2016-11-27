@@ -67,13 +67,24 @@
                              :label "Reading"},
                             {:id :read
                              :label "Read"}])
+        read-status-open (reagent/atom false)
         status (reagent/atom status)]
-    [re-com/horizontal-bar-tabs
-     :tabs tabs
-     :model status
-     :on-change #(do
-                   (reset! status %)
-                   (re-frame/dispatch [:update-read-status % book]))]))
+    [re-com/popover-anchor-wrapper 
+     :anchor [re-com/md-icon-button 
+              :md-icon-name "zmdi-book"
+              :size :smaller
+              :on-click #(swap! read-status-open not)]
+     :showing? read-status-open
+     :position :below-center
+     :popover [re-com/popover-content-wrapper
+               :showing? read-status-open 
+               :position :below-center
+               :body [re-com/vertical-bar-tabs
+                      :tabs tabs
+                      :model status
+                      :on-change #(do
+                                    (reset! status %)
+                                    (re-frame/dispatch [:update-read-status % book]))]]]))
 
 (defn bookstack-nav [stacks current-stack]
   (let [all-stacks (clojure.set/union stacks #{"In Progress"})]
@@ -87,27 +98,29 @@
                 all-stacks))))
 
 (defn book-index-dropdown [book stack] 
- [re-com/single-dropdown 
-  :choices (map #(hash-map :id %
-                           :label (inc %))
-                (range (count (:books stack))))
-  :model (:index book)
-  :on-change #(re-frame/dispatch [:update-book-index book stack (:index book) %])])
+  [re-com/single-dropdown 
+   :choices (map #(hash-map :id %
+                            :label (inc %))
+                 (range (count (:books stack))))
+   :model (:index book)
+   :width "40px"
+   :on-change #(re-frame/dispatch [:update-book-index book stack (:index book) %])])
 
 (defn bookstack-row [stack book]
   [(keyword (str "li." (name (:status book))))
    (if (:editing? book)
-    [:div  
-     (book-index-dropdown book stack)
-     [re-com/input-text
-      :model (:title book)
-      :width "204px"
-      :on-change #(re-frame/dispatch [:update-book-title % book])]]
+     [re-com/h-box
+     :children [ 
+      (book-index-dropdown book stack)
+      [re-com/input-text
+       :model (:title book)
+       :width "134px"
+       :on-change #(re-frame/dispatch [:update-book-title % book])]]]
      [:span (str (inc  (:index book)) ". " (:title book))])
-   (read-status (:status book) book)
    [re-com/h-box
     :class "modify-book"
-    :children [[re-com/md-icon-button
+    :children [(read-status (:status book) book)
+               [re-com/md-icon-button
                 :md-icon-name "zmdi-edit"
                 :size :smaller 
                 :on-click #(re-frame/dispatch [:edit-book-title book])]
