@@ -26,17 +26,29 @@
     (reduce #(concat %1 
                      (keys (:stacks %2))) 
             []
-            (vals books))))
+            books)))
+
+(defn filter-stacks-by-book-title [books query]
+  (generate-stacks
+    (filter #(do
+               (string/includes? 
+                 (string/lower-case (:title %)) 
+                 (string/lower-case query)))
+            books)))
 
 (re-frame/reg-sub
   :stacks
   (fn [db]
     (let [query (reaction (:search-term db))
           current-stack (reaction (:current-stack db))
-          stacks (reaction (generate-stacks (:books db)))]
-      (sort (filter-stacks @stacks
-                           @query 
-                           @current-stack)))))
+          stacks (reaction (generate-stacks (vals (:books db))))
+          stacks-by-name (filter-stacks @stacks
+                                        @query 
+                                        @current-stack)
+          stacks-by-book-title (filter-stacks-by-book-title (vals  (:books db))
+                                                            @query)]
+      (sort (set/union stacks-by-name
+                       stacks-by-book-title )))))
 
 (defn test-by-stack [stack]
   (case stack
