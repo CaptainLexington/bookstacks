@@ -1,4 +1,5 @@
 figwheel_server.log
 target/
 .lein-repl-history
+.fig*
 *.swp
