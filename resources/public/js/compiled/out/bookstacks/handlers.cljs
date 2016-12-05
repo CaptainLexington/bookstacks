@@ -4,6 +4,7 @@
             [bookstacks.db :as db]
             [bookstacks.subs :as sub]))
 
+; TODO - replace update-user with reg-event-fx
 (defn update-user [data]
   (db/update-user data)
   data)
@@ -83,6 +84,7 @@
 (re-frame/reg-event-db
   :delete-bookstack
   (fn [db [_ stack]]
+    ; TODO - replace set! with reg-event-fx
     (set! (.-location js/window)
           "/#/stacks/In_Progress")
     (update-user 
