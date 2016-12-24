@@ -82,6 +82,32 @@
                                     books)))))))
 
 (re-frame/reg-event-db
+  :edit-bookstack-name
+  (fn [db [_]]
+    (assoc db
+           :editing-stack-name?
+           true)))
+
+(re-frame/reg-event-db 
+  :update-bookstack-name
+  (fn [db [_ stack new-name]]
+    (set! (.-location js/window)
+     (str "/#/stacks/" (clojure.string/replace new-name
+                                               " "
+                                               "_")))
+    (reduce #(assoc-in %1
+                       [:books
+                        (:id %2)
+                        :stacks ]
+                       (clojure.set/rename-keys (:stacks %2)
+                                                {(:name stack)
+                                                 new-name}))
+            (assoc db
+                   :editing-stack-name?
+                   false)
+            (:books stack))))
+
+(re-frame/reg-event-db
   :delete-bookstack
   (fn [db [_ stack]]
     ; TODO - replace set! with reg-event-fx

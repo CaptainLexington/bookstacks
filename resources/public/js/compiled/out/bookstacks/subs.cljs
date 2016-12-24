@@ -68,6 +68,11 @@
   (fn [db]
     (:current-stack db)))
 
+(re-frame/reg-sub 
+  :editing-stack-name?
+  (fn [db]
+    (:editing-stack-name? db)))
+
 (re-frame/reg-sub
   :stack
   (fn [db [query stack-name]]

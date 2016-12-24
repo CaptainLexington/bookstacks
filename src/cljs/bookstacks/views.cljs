@@ -48,8 +48,8 @@
                        [re-com/button 
                         :label "Add"
                         :on-click #(do (re-frame/dispatch [:add-bookstack 
-                                                           @add-new-title 
-                                                           @add-new-list])
+                                                                                   @add-new-title 
+                                                                                   @add-new-list])
                                        (swap! add-new-open not) )]]]]]))
 (defn search
   [search-term]
@@ -92,8 +92,8 @@
           (mapv (fn [stack]
                   [:li
                    [:a {:href (str "/#/stacks/" (clojure.string/replace stack
-                                                                        " "
-                                                                        "_"))} 
+                                                                                           " "
+                                                                                           "_"))} 
                     stack]])
                 all-stacks))))
 
@@ -110,12 +110,12 @@
   [(keyword (str "li." (name (:status book))))
    (if (:editing? book)
      [re-com/h-box
-     :children [ 
-      (book-index-dropdown book stack)
-      [re-com/input-text
-       :model (:title book)
-       :width "134px"
-       :on-change #(re-frame/dispatch [:update-book-title % book])]]]
+      :children [ 
+                 (book-index-dropdown book stack)
+                 [re-com/input-text
+                  :model (:title book)
+                  :width "134px"
+                  :on-change #(re-frame/dispatch [:update-book-title % book])]]]
      [:span (str (inc  (:index book)) ". " (:title book))])
    [re-com/h-box
     :class "modify-book"
@@ -129,7 +129,7 @@
                 :size :smaller
                 :on-click #(re-frame/dispatch [:remove-book-from-stack (:name  stack) book])]]]])
 
-(defn bookstack [stack]
+(defn bookstack [stack editing-stack-name?]
   (let [row (partial bookstack-row stack)
         books (group-by :status (:books stack))
         unread-books (sort-by :index 
@@ -140,10 +140,18 @@
                             (:read books))]
     [:div.booklist 
      [re-com/h-box 
-      :children [[:h3.stack (:name stack)]
+      :children [(if editing-stack-name? 
+                   [re-com/input-text
+                    :model (:name stack)
+                    :on-change #(re-frame/dispatch [:update-bookstack-name stack %])]            
+                   [:h3.stack (:name stack)]) 
                  [re-com/md-icon-button
                   :md-icon-name "zmdi-plus"
                   :on-click #(re-frame/dispatch [:add-book stack])]
+                 [re-com/md-icon-button 
+                  :md-icon-name "zmdi-edit"
+                  :on-click #(re-frame/dispatch [:edit-bookstack-name])
+                  ]
                  [re-com/md-icon-button
                   :md-icon-name "zmdi-delete"
                   :on-click #(re-frame/dispatch [:delete-bookstack (:name stack)])]]]
@@ -164,7 +172,9 @@
   (let [current-stack (re-frame/subscribe [:current-stack])
         stack (re-frame/subscribe [:stack @current-stack])
         stacks (re-frame/subscribe [:stacks])
-        search-term (re-frame/subscribe [:search-term])]
+        search-term (re-frame/subscribe [:search-term])
+        editing-stack-name? (re-frame/subscribe [:editing-stack-name?])
+        ]
     [re-com/v-box
      :gap "1em"
      :children [[home-title]
@@ -175,7 +185,7 @@
                                         (bookstack-nav @stacks @current-stack)
                                         [link-to-about-page]]]
                             [:div  
-                             (bookstack @stack)]]]]]))
+                             (bookstack @stack @editing-stack-name?)]]]]]))
 
 
 ;; about

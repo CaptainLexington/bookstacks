@@ -10,6 +10,7 @@
    :books {}
    :stacks {}
    :search-term ""
+   :editing-stack-name? false
    :current-stack "In Progress"})
 
 (defn update-user [user]
