@@ -108,6 +108,16 @@
             (:books stack))))
 
 (re-frame/reg-event-db
+  :toggle-book-selected
+  (fn [db [_ book]]
+    (assoc-in db
+              [:books
+               (:id book)]
+              (if (:selected? book)
+                (dissoc book :selected?)
+                (assoc book :selected? true)))))
+
+(re-frame/reg-event-db
   :delete-bookstack
   (fn [db [_ stack]]
     ; TODO - replace set! with reg-event-fx

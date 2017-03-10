@@ -1,13 +1,12 @@
 (ns bookstacks.core
-    (:require [reagent.core :as reagent]
-              [re-frame.core :as re-frame]
-              [devtools.core :as devtools]
-              [bookstacks.handlers]
-              [bookstacks.subs]
-              [bookstacks.routes :as routes]
-              [bookstacks.views :as views]
-              [bookstacks.config :as config]))
-
+  (:require [reagent.core :as reagent]
+            [re-frame.core :as re-frame]
+            [devtools.core :as devtools]
+            [bookstacks.handlers]
+            [bookstacks.subs]
+            [bookstacks.routes :as routes]
+            [bookstacks.views :as views]
+            [bookstacks.config :as config]))
 
 (defn dev-setup []
   (when config/debug?

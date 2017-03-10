@@ -107,7 +107,9 @@
    :on-change #(re-frame/dispatch [:update-book-index book stack (:index book) %])])
 
 (defn bookstack-row [stack book]
-  [(keyword (str "li." (name (:status book))))
+  [(keyword (str "li."
+                 (name (:status book))
+                 (when (:selected? book) ".selected")))
    (if (:editing? book)
      [re-com/h-box
       :children [ 
@@ -116,7 +118,9 @@
                   :model (:title book)
                   :width "134px"
                   :on-change #(re-frame/dispatch [:update-book-title % book])]]]
-     [:span (str (inc  (:index book)) ". " (:title book))])
+     [:span
+      {:on-click #(re-frame/dispatch [:toggle-book-selected book])}
+      (str (inc  (:index book)) ". " (:title book))])
    [re-com/h-box
     :class "modify-book"
     :children [(read-status (:status book) book)
