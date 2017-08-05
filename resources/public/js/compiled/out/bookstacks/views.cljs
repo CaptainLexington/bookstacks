@@ -177,8 +177,7 @@
         stack (re-frame/subscribe [:stack @current-stack])
         stacks (re-frame/subscribe [:stacks])
         search-term (re-frame/subscribe [:search-term])
-        editing-stack-name? (re-frame/subscribe [:editing-stack-name?])
-        ]
+        editing-stack-name? (re-frame/subscribe [:editing-stack-name?])]
     [re-com/v-box
      :gap "1em"
      :children [[home-title]
